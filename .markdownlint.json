@@ -16,7 +16,7 @@
   "MD024": { "siblings_only": true },
   "MD025": false,
   "MD026": { "punctuation": ".,;:!" },
-  "MD029": { "style": "ordered" },
+  "MD029": false,
   "MD030": { "ul_single": 1, "ol_single": 1, "ul_multi": 1, "ol_multi": 1 },
   "MD031": false,
   "MD032": false,
@@ -43,7 +43,7 @@
       "style"
     ]
   },
-  "MD034": true,
+  "MD034": false,
   "MD035": { "style": "---" },
   "MD036": false,
   "MD037": true,
