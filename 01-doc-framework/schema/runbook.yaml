@@ -1,0 +1,168 @@
+# ランブックスキーマ v2.0
+# 9251205claude.md セクション2.4準拠
+# 戦術的で自動化対応可能なドキュメント
+
+extends: common.yaml
+document_type: runbook
+version: "2.0"
+description: "ランブックの構造定義 - コピペで実行可能な具体的なタスク手順書。すべてのコマンドはコピー＆ペーストで動作する必要がある"
+template_file: "02runbook-template.md"
+
+# =============================================================================
+# ランブック固有フロントマターフィールド
+# =============================================================================
+frontmatter:
+  required:
+    - name: estimated_duration
+      type: string
+      pattern: "^\\d+-\\d+[時間分秒]$"
+      description: "推定所要時間（例: 30-45分）"
+
+    - name: downtime_required
+      type: boolean
+      description: "ダウンタイムが必要かどうか"
+
+  optional:
+    - name: automation
+      type: object
+      properties:
+        supported:
+          type: boolean
+          description: "自動化対応可否"
+        platform:
+          type: string
+          description: "自動化プラットフォーム（例: PowerShell/Bash）"
+        script:
+          type: string
+          description: "自動化スクリプトへのパス"
+      description: "自動化メタデータ"
+
+    - name: prerequisites
+      type: object
+      properties:
+        system:
+          type: array
+          description: "システム要件（例: Windows 11 22H2以上）"
+        access:
+          type: array
+          description: "必要なアクセス権限（例: ローカル管理者権限）"
+      description: "前提条件"
+
+# =============================================================================
+
+# 必須セクション
+sections:
+  required:
+    - name: "概要"
+      purpose: "ランブックの目的と実行タイミングを説明"
+      min_words: 30
+      contains:
+        - "目的"
+        - "実行タイミング"
+        - "所要時間目安"
+
+    - name: "前提条件"
+      purpose: "実行前に満たすべき条件とアクセス権限"
+      contains:
+        - "必要な権限"
+        - "必要なツール"
+        - "環境要件"
+
+    - name: "事前確認チェックリスト"
+      purpose: "実行前に確認すべき項目のリスト"
+      requires_checklist: true
+
+    - name: "実行手順"
+      purpose: "コピペ可能なコマンドと手順"
+      min_subsections: 3
+      subsection_structure:
+        - "目的"
+        - "コマンド"
+        - "期待される出力"
+        - "確認方法"
+
+    - name: "検証チェックリスト"
+      purpose: "実行完了を確認するためのチェック項目"
+      requires_checklist: true
+
+    - name: "トラブルシューティング"
+      purpose: "よくある問題と解決策"
+      min_subsections: 2
+
+    - name: "ロールバック手順"
+      purpose: "問題発生時の復旧手順"
+      contains:
+        - "ロールバック条件"
+        - "復旧コマンド"
+        - "確認方法"
+
+  optional:
+    - name: "成果物とログ"
+      purpose: "実行結果の記録場所と保存方法"
+
+    - name: "メトリクスとモニタリング"
+      purpose: "実行後の監視項目"
+
+    - name: "改善履歴"
+      purpose: "ランブックの更新履歴"
+
+    - name: "関連ドキュメント"
+      purpose: "参照すべき他のドキュメント"
+
+# セクション順序（推奨）
+section_order:
+  - "概要"
+  - "前提条件"
+  - "事前確認チェックリスト"
+  - "実行手順"
+  - "検証チェックリスト"
+  - "トラブルシューティング"
+  - "ロールバック手順"
+  - "成果物とログ"
+  - "関連ドキュメント"
+  - "メトリクスとモニタリング"
+  - "改善履歴"
+
+# セクション間依存関係
+dependencies:
+  - if: "実行手順"
+    then: "前提条件"
+    reason: "手順は前提条件が満たされた状態で実行される"
+
+  - if: "検証チェックリスト"
+    then: "実行手順"
+    reason: "検証は実行手順の完了を確認する"
+
+  - if: "トラブルシューティング"
+    then: "実行手順"
+    reason: "トラブルシュートは実行中の問題に対応する"
+
+  - if: "ロールバック手順"
+    then: "実行手順"
+    reason: "ロールバックは実行手順の逆操作"
+
+# 制約条件
+constraints:
+  - type: "code_block_required"
+    sections: ["実行手順", "ロールバック手順"]
+    reason: "コピペ可能なコマンドが必要"
+
+  - type: "checklist_required"
+    sections: ["事前確認チェックリスト", "検証チェックリスト"]
+
+  - type: "min_troubleshooting_cases"
+    sections: ["トラブルシューティング"]
+    value: 2
+
+  - type: "env_variable_documented"
+    sections: ["実行手順"]
+    reason: "環境変数は明示的に説明する"
+
+# 品質基準
+quality_criteria:
+  - "コマンドがコピペで実行可能"
+  - "期待される出力が明記されている"
+  - "エラー時の対処法が記載されている"
+  - "ロールバック手順が完全"
+  - "所要時間の目安が記載されている"
+  - "環境変数やパスが明示的に説明されている"

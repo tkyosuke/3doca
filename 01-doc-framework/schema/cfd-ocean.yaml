@@ -1,0 +1,238 @@
+# CFD/海洋モデリングドメイン固有スキーマ
+# 9251205claude.md セクション7.1準拠
+
+extends: common.yaml
+domain: scientific
+version: "1.0"
+description: "CFD（数値流体力学）および海洋モデリング向けのドメイン固有フロントマターフィールドとセクション定義"
+
+# =============================================================================
+# ドメイン固有フロントマターフィールド
+# =============================================================================
+frontmatter:
+  # ---------------------------------------------------------------------------
+  # 検証と妥当性確認（V&V）
+  # ---------------------------------------------------------------------------
+  optional:
+    - name: validation_cases
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: "検証ケース名（例: Lid-driven Cavity Flow）"
+          reference:
+            type: string
+            description: "参照文献/ベンチマーク（例: Ghia et al. (1982)）"
+          metrics:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "メトリクス名（例: u-velocity at y=0.5）"
+                expected:
+                  type: number
+                  description: "期待値"
+                tolerance:
+                  type: string
+                  description: "許容誤差（例: ±2%）"
+      description: "検証ケース配列（妥当性確認用）"
+      examples:
+        - name: "Lid-driven Cavity Flow"
+          reference: "Ghia et al. (1982)"
+          metrics:
+            - name: "u-velocity at y=0.5"
+              expected: 0.0
+              tolerance: "±2%"
+
+    - name: verification
+      type: object
+      properties:
+        grid_convergence:
+          type: object
+          properties:
+            method:
+              type: enum
+              values: [GCI, Richardson, Grid-sequencing]
+              description: "グリッド収束評価手法"
+            grids:
+              type: array
+              description: "使用グリッドレベル（例: [coarse, medium, fine]）"
+            observed_order:
+              type: number
+              description: "観測収束次数"
+        solution_verification:
+          type: object
+          properties:
+            iterative_convergence:
+              type: string
+              description: "反復収束基準（例: residuals < 1e-6）"
+            mass_conservation:
+              type: string
+              description: "質量保存誤差（例: < 1e-8）"
+      description: "検証方法（コードおよびソリューション検証）"
+
+    - name: standards
+      type: array
+      items:
+        type: string
+      description: "準拠する品質標準"
+      examples:
+        - "ASME V&V 20-2009"
+        - "ERCOFTAC Best Practice Guidelines"
+        - "AIAA G-077-1998"
+        - "ISO 9000 Quality Management"
+
+    - name: hpc_requirements
+      type: object
+      properties:
+        cores:
+          type: integer
+          description: "必要コア数"
+        memory_per_core:
+          type: string
+          description: "コアあたりメモリ（例: 4GB）"
+        walltime:
+          type: string
+          description: "推定実行時間（例: 24:00:00）"
+        storage:
+          type: string
+          description: "必要ストレージ（例: 500GB）"
+        parallel_model:
+          type: enum
+          values: [MPI, OpenMP, Hybrid, GPU]
+          description: "並列化モデル"
+      description: "HPC要件"
+
+    - name: solver_config
+      type: object
+      properties:
+        solver:
+          type: string
+          description: "使用ソルバー（例: OpenFOAM, ROMS）"
+        version:
+          type: string
+          description: "ソルバーバージョン"
+        turbulence_model:
+          type: string
+          description: "乱流モデル（例: k-epsilon, k-omega SST）"
+        time_integration:
+          type: string
+          description: "時間積分法（例: Crank-Nicolson, RK4）"
+      description: "ソルバー設定"
+
+    - name: domain_config
+      type: object
+      properties:
+        dimensions:
+          type: string
+          description: "計算領域サイズ（例: 1000km x 500km x 4000m）"
+        grid_resolution:
+          type: string
+          description: "グリッド解像度（例: 1/12°, 10m）"
+        total_cells:
+          type: integer
+          description: "総セル数"
+        boundary_conditions:
+          type: array
+          description: "境界条件リスト"
+      description: "計算領域設定"
+
+# =============================================================================
+# ドメイン固有必須セクション
+# =============================================================================
+required_sections:
+  - name: "計算領域と境界条件"
+    description: "計算ドメイン、グリッド解像度、境界条件の定義"
+    order: 3
+    validation:
+      must_contain:
+        - "ドメインサイズ"
+        - "グリッド解像度"
+        - "境界条件"
+    examples:
+      - "計算領域: 東経120-140°、北緯20-45°"
+      - "水平解像度: 1/12° (約9km)"
+      - "境界条件: 開境界にはFRS（Flow Relaxation Scheme）を適用"
+
+  - name: "検証と妥当性確認（V&V）"
+    description: "コード検証、ソリューション検証、妥当性確認の結果"
+    order: 6
+    validation:
+      must_contain:
+        - "グリッド収束"
+        - "検証ケース"
+    format: |
+      ### グリッド収束評価
+      | グリッド | セル数 | 代表値 | GCI |
+      |---------|-------|-------|-----|
+      | Coarse  | ... | ... | ... |
+
+      ### 検証ケース結果
+      | ケース | 参照値 | 計算値 | 誤差 |
+      |-------|-------|-------|------|
+
+  - name: "不確かさ定量化"
+    description: "入力パラメータの不確かさ、モデルの不確かさ、数値誤差の評価"
+    order: 7
+    validation:
+      must_contain:
+        - "入力不確かさ"
+        - "数値誤差"
+    format: |
+      ### 不確かさ源
+      - **入力パラメータ**: 風応力データの精度 ±10%
+      - **モデル構造**: 乱流モデルの仮定
+      - **数値誤差**: グリッド収束誤差 < 5%
+
+  - name: "HPC要件とリソース"
+    description: "計算リソース要件、並列化戦略、実行時間推定"
+    order: 8
+    validation:
+      must_contain_table: true
+      must_contain:
+        - "コア数"
+        - "メモリ"
+        - "実行時間"
+    format: |
+      | パラメータ | 値 | 備考 |
+      |-----------|---|------|
+      | コア数 | 256 | MPI |
+      | メモリ/コア | 4GB | ... |
+      | 実行時間 | 24時間 | 1年分シミュレーション |
+
+  - name: "コミュニティ標準参照"
+    description: "準拠する品質標準、ベストプラクティスガイドライン"
+    order: 9
+    validation:
+      must_contain_list: true
+    examples:
+      - "ASME V&V 20-2009: Standard for Verification and Validation"
+      - "ERCOFTAC Best Practice Guidelines for Industrial CFD"
+
+# =============================================================================
+# ドメイン固有任意セクション
+# =============================================================================
+optional_sections:
+  - name: "感度分析"
+    description: "パラメータ感度、メッシュ感度の評価結果"
+
+  - name: "ポスト処理"
+    description: "結果の可視化、統計処理、診断量計算"
+
+  - name: "再現性情報"
+    description: "乱数シード、初期条件、再現に必要な情報"
+
+# =============================================================================
+# 品質基準（ドメイン固有）
+# =============================================================================
+quality_criteria:
+  - "グリッド収束評価（GCIまたは同等）が実施されている"
+  - "検証ケースで期待精度を達成している"
+  - "HPC要件が明確に記載されている"
+  - "不確かさの主要因が特定されている"
+  - "コミュニティ標準への準拠が明記されている"
+  - "再現に必要な情報が完備している"

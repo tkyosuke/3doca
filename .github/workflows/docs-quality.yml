@@ -1,0 +1,171 @@
+name: Documentation Quality Check
+
+on:
+  pull_request:
+    paths:
+      - '01-doc-framework/**/*.md'
+      - 'docs/**/*.md'
+      - '**.md'
+  push:
+    branches:
+      - main
+    paths:
+      - '01-doc-framework/**/*.md'
+
+# 同時実行を制限（PRごとに1つのワークフローのみ）
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # =========================================================================
+  # Job 1: Markdownリント
+  # =========================================================================
+  markdownlint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v18
+        with:
+          globs: |
+            01-doc-framework/**/*.md
+            !01-doc-framework/**/node_modules/**
+
+  # =========================================================================
+  # Job 2: Valeスタイルチェック
+  # =========================================================================
+  vale:
+    name: Vale Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Vale
+        uses: errata-ai/vale-action@v2
+        with:
+          files: 01-doc-framework
+          # 初回はwarning以上のみ報告（strict: falseでエラーにしない）
+          reporter: github-check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # =========================================================================
+  # Job 3: リンク検証
+  # =========================================================================
+  lychee:
+    name: Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run lychee link checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: |
+            --verbose
+            --no-progress
+            --accept 200,204,206,301,302,303,307,308
+            --exclude-mail
+            --exclude '^https://github.com/.*/(edit|new|delete)'
+            --exclude 'localhost'
+            --exclude '127.0.0.1'
+            '01-doc-framework/**/*.md'
+          fail: false  # 初回はfailにしない（警告のみ）
+
+  # =========================================================================
+  # Job 4: フロントマター検証
+  # =========================================================================
+  frontmatter:
+    name: Frontmatter Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Run frontmatter check
+        run: |
+          python 01-doc-framework/check_frontmatter.py \
+            01-doc-framework/templates \
+            01-doc-framework/examples \
+            --format json \
+            --output frontmatter-report.json
+
+      - name: Upload frontmatter report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontmatter-report
+          path: frontmatter-report.json
+          retention-days: 7
+
+  # =========================================================================
+  # Job 5: 必須セクション検証（テンプレート以外）
+  # =========================================================================
+  sections:
+    name: Section Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Run section check on examples
+        run: |
+          python 01-doc-framework/check_frontmatter.py \
+            01-doc-framework/examples \
+            --check-sections \
+            --format json \
+            --output sections-report.json
+        continue-on-error: true  # 初回はエラーでも継続
+
+      - name: Upload sections report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sections-report
+          path: sections-report.json
+          retention-days: 7
+
+  # =========================================================================
+  # Job 6: サマリーレポート
+  # =========================================================================
+  summary:
+    name: Quality Summary
+    runs-on: ubuntu-latest
+    needs: [markdownlint, vale, lychee, frontmatter, sections]
+    if: always()
+    steps:
+      - name: Create summary
+        run: |
+          echo "## Documentation Quality Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Markdown Lint | ${{ needs.markdownlint.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Vale Style | ${{ needs.vale.result == 'success' && '✅ Passed' || '⚠️ Warnings' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Link Check | ${{ needs.lychee.result == 'success' && '✅ Passed' || '⚠️ Warnings' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Frontmatter | ${{ needs.frontmatter.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Sections | ${{ needs.sections.result == 'success' && '✅ Passed' || '⚠️ Warnings' }} |" >> $GITHUB_STEP_SUMMARY

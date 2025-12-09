@@ -1,0 +1,9 @@
+# 3doca Custom Rule: Frontmatter Check
+# Ensures documents have required frontmatter fields
+
+extends: existence
+message: "Document should have frontmatter with required fields (title, description, tags, category)."
+level: warning
+scope: raw
+raw:
+  - '^---\n(?:(?!---)[\s\S])*?title:\s*.+\n(?:(?!---)[\s\S])*?description:\s*.+\n(?:(?!---)[\s\S])*?---'

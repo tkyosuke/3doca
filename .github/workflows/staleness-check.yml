@@ -1,0 +1,107 @@
+name: Document Staleness Check
+
+on:
+  # 週次スケジュール（毎週月曜日 9:00 JST = 0:00 UTC）
+  schedule:
+    - cron: '0 0 * * 1'
+
+  # 手動実行
+  workflow_dispatch:
+    inputs:
+      create_issue:
+        description: 'Create GitHub Issue for stale documents'
+        required: false
+        default: 'true'
+        type: boolean
+
+jobs:
+  check-staleness:
+    name: Check Document Staleness
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Run staleness check
+        id: staleness
+        run: |
+          python 01-doc-framework/check_staleness.py \
+            01-doc-framework/examples \
+            --format json \
+            --output staleness-report.json \
+            --verbose || true
+
+          # 陳腐化ドキュメント数を取得
+          STALE_COUNT=$(python -c "import json; data=json.load(open('staleness-report.json')); print(data['stale_documents'])")
+          echo "stale_count=$STALE_COUNT" >> $GITHUB_OUTPUT
+
+          # サマリーを作成
+          echo "## 📋 Document Staleness Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          python -c "
+          import json
+          data = json.load(open('staleness-report.json'))
+          print(f\"**Scan Date**: {data['scan_date']}\")
+          print(f\"**Total Documents**: {data['total_documents']}\")
+          print(f\"**Stale Documents**: {data['stale_documents']}\")
+          print()
+          print('### Summary by Level')
+          print('| Level | Count |')
+          print('|-------|-------|')
+          for level, count in data['summary'].items():
+              print(f'| {level.upper()} | {count} |')
+          " >> $GITHUB_STEP_SUMMARY
+
+      - name: Generate Issue body
+        if: steps.staleness.outputs.stale_count != '0'
+        run: |
+          python 01-doc-framework/check_staleness.py \
+            01-doc-framework/examples \
+            --format github-issue \
+            --output issue-body.md
+
+      - name: Create GitHub Issue
+        if: |
+          steps.staleness.outputs.stale_count != '0' &&
+          (github.event_name == 'schedule' || github.event.inputs.create_issue == 'true')
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "📋 Document Staleness Report - ${{ github.run_id }}"
+          content-filepath: issue-body.md
+          labels: |
+            documentation
+            maintenance
+            automated
+
+      - name: Upload staleness report
+        uses: actions/upload-artifact@v4
+        with:
+          name: staleness-report
+          path: staleness-report.json
+          retention-days: 30
+
+      - name: Check for critical/high staleness
+        if: steps.staleness.outputs.stale_count != '0'
+        run: |
+          python -c "
+          import json
+          import sys
+          data = json.load(open('staleness-report.json'))
+          critical = data['summary']['critical']
+          high = data['summary']['high']
+          if critical > 0:
+              print(f'::error::Found {critical} CRITICAL stale document(s)!')
+              sys.exit(1)
+          if high > 0:
+              print(f'::warning::Found {high} HIGH staleness document(s)')
+          "

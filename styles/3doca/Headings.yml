@@ -1,0 +1,15 @@
+# 3doca Custom Rule: Section Headings
+# Encourages descriptive section headings
+
+extends: existence
+message: "Consider adding context to section heading '%s' (e.g., '## 概要 - プロセスの目的と適用範囲')."
+level: suggestion
+scope: heading
+ignorecase: true
+tokens:
+  - '^概要$'
+  - '^目的$'
+  - '^手順$'
+  - '^まとめ$'
+  - '^参考$'
+  - '^関連$'

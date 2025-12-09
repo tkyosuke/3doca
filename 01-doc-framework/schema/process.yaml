@@ -1,0 +1,110 @@
+# プロセスドキュメントスキーマ
+# ワークフロー全体の流れを記述するドキュメント用
+
+document_type: process
+version: "1.0"
+description: "プロセスドキュメントの構造定義 - ワークフロー全体の流れと各ステップの詳細を記述"
+template_file: "00process-document-template.md"
+
+# 必須セクション
+sections:
+  required:
+    - name: "概要"
+      purpose: "プロセスの目的、範囲、対象読者を説明"
+      min_words: 50
+      contains:
+        - "目的"
+        - "対象読者"
+        - "前提知識"
+
+    - name: "プロセスフロー"
+      purpose: "全体の流れをMermaidダイアグラムで可視化"
+      requires_mermaid: true
+      mermaid_type: "flowchart"
+
+    - name: "ステップ詳細"
+      purpose: "各ステップの具体的な実行方法を説明"
+      min_subsections: 3
+      subsection_structure:
+        - "目的"
+        - "入力"
+        - "手順"
+        - "出力"
+        - "注意事項"
+
+    - name: "品質ゲート"
+      purpose: "次のステップに進むための判断基準"
+      contains:
+        - "チェックリスト"
+        - "判定基準"
+
+  optional:
+    - name: "検証とレビュー"
+      purpose: "成果物の品質確認方法"
+
+    - name: "成果物とドキュメント"
+      purpose: "プロセス完了時の成果物リスト"
+
+    - name: "ツールと環境"
+      purpose: "必要なツールと環境設定"
+
+    - name: "メトリクスとKPI"
+      purpose: "プロセス効率の測定指標"
+
+    - name: "トラブルシューティング"
+      purpose: "よくある問題と解決策"
+
+    - name: "参考資料"
+      purpose: "追加の学習リソース"
+
+    - name: "関連ドキュメント"
+      purpose: "参照すべき他のドキュメント"
+
+# セクション順序（推奨）
+section_order:
+  - "概要"
+  - "プロセスフロー"
+  - "ステップ詳細"
+  - "品質ゲート"
+  - "検証とレビュー"
+  - "成果物とドキュメント"
+  - "ツールと環境"
+  - "メトリクスとKPI"
+  - "トラブルシューティング"
+  - "参考資料"
+  - "関連ドキュメント"
+
+# セクション間依存関係
+dependencies:
+  - if: "ステップ詳細"
+    then: "プロセスフロー"
+    reason: "ステップ詳細はプロセスフローで定義されたステップに対応する必要がある"
+
+  - if: "品質ゲート"
+    then: "ステップ詳細"
+    reason: "品質ゲートは各ステップの完了基準を定義する"
+
+  - if: "メトリクスとKPI"
+    then: "品質ゲート"
+    reason: "メトリクスは品質ゲートの達成度を測定する"
+
+# 制約条件
+constraints:
+  - type: "mermaid_required"
+    sections: ["プロセスフロー"]
+    diagram_types: ["flowchart", "sequenceDiagram"]
+
+  - type: "min_steps"
+    sections: ["ステップ詳細"]
+    value: 3
+
+  - type: "checklist_required"
+    sections: ["品質ゲート", "検証とレビュー"]
+
+# 品質基準
+quality_criteria:
+  - "1文書1プロセス原則を遵守"
+  - "各ステップが自己完結的に記述されている"
+  - "代名詞を避け、具体的な用語を使用"
+  - "重要なキーワードが段落の冒頭に配置"
+  - "セクションは250〜512トークンを目安"

@@ -1,0 +1,175 @@
+# プレイブックスキーマ v2.0
+# 9251205claude.md セクション2.3準拠
+# 判断を伴う複雑なシナリオへの対応指針
+
+extends: common.yaml
+document_type: playbook
+version: "2.0"
+description: "プレイブックの構造定義 - いつどのアプローチを使用するかとトリアージのための意思決定ツリーを提供"
+template_file: "01playbook-template.md"
+
+# =============================================================================
+# プレイブック固有フロントマターフィールド
+# =============================================================================
+frontmatter:
+  required:
+    - name: trigger
+      type: object
+      properties:
+        alert_name:
+          type: string
+          description: "トリガーとなるアラート名"
+        condition:
+          type: string
+          description: "発動条件（例: p99レイテンシ > 500ms が5分間継続）"
+        source:
+          type: string
+          description: "監視元（例: Prometheus/AlertManager）"
+      description: "トリガー条件"
+
+  optional:
+    - name: severity_classification
+      type: object
+      properties:
+        sev1:
+          type: string
+          description: "SEV-1の定義（全リージョン影響等）"
+        sev2:
+          type: string
+          description: "SEV-2の定義（単一リージョン等）"
+        sev3:
+          type: string
+          description: "SEV-3の定義（内部サービスのみ等）"
+      description: "重大度分類"
+
+    - name: escalation
+      type: object
+      properties:
+        primary:
+          type: string
+          description: "一次エスカレーション先"
+        secondary:
+          type: string
+          description: "二次エスカレーション先"
+        tertiary:
+          type: string
+          description: "三次エスカレーション先"
+      description: "エスカレーションパス"
+
+    - name: related_runbooks
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          title:
+            type: string
+      description: "関連ランブックリスト"
+
+# =============================================================================
+
+# 必須セクション
+sections:
+  required:
+    - name: "概要"
+      purpose: "プレイブックの目的、適用範囲、想定シナリオを説明"
+      min_words: 50
+      contains:
+        - "目的"
+        - "適用範囲"
+        - "想定シナリオ"
+
+    - name: "意思決定フレームワーク"
+      purpose: "状況判断のためのフローチャートまたは決定木を提供"
+      requires_mermaid: true
+      mermaid_type: "flowchart"
+      contains:
+        - "判断基準"
+        - "分岐条件"
+
+    - name: "シナリオ別対応戦略"
+      purpose: "各シナリオに対する具体的な対応手順"
+      min_subsections: 3
+      subsection_structure:
+        - "シナリオ説明"
+        - "判断ポイント"
+        - "対応手順"
+        - "期待される結果"
+        - "注意事項"
+
+    - name: "エスカレーション基準"
+      purpose: "上位者への報告・エスカレーションが必要な条件"
+      contains:
+        - "エスカレーション条件"
+        - "連絡先"
+        - "報告フォーマット"
+
+  optional:
+    - name: "判断支援ツール"
+      purpose: "意思決定を支援するためのチェックリスト、マトリクス"
+
+    - name: "事例集"
+      purpose: "過去の対応事例とその結果"
+      min_subsections: 2
+
+    - name: "レビューと改善"
+      purpose: "プレイブックの定期的な見直し方法"
+
+    - name: "ツールとリソース"
+      purpose: "対応に必要なツールと参考資料"
+
+    - name: "メトリクスとKPI"
+      purpose: "対応品質の測定指標"
+
+    - name: "関連ドキュメント"
+      purpose: "参照すべき他のドキュメント"
+
+# セクション順序（推奨）
+section_order:
+  - "概要"
+  - "意思決定フレームワーク"
+  - "シナリオ別対応戦略"
+  - "判断支援ツール"
+  - "エスカレーション基準"
+  - "事例集"
+  - "レビューと改善"
+  - "関連ドキュメント"
+  - "ツールとリソース"
+  - "メトリクスとKPI"
+
+# セクション間依存関係
+dependencies:
+  - if: "シナリオ別対応戦略"
+    then: "意思決定フレームワーク"
+    reason: "シナリオは意思決定フローの分岐先として定義される"
+
+  - if: "事例集"
+    then: "シナリオ別対応戦略"
+    reason: "事例はシナリオに対応した実際の対応記録"
+
+  - if: "判断支援ツール"
+    then: "意思決定フレームワーク"
+    reason: "ツールはフレームワークでの判断を補助する"
+
+# 制約条件
+constraints:
+  - type: "mermaid_required"
+    sections: ["意思決定フレームワーク"]
+    diagram_types: ["flowchart", "stateDiagram"]
+
+  - type: "min_scenarios"
+    sections: ["シナリオ別対応戦略"]
+    value: 3
+
+  - type: "escalation_info_required"
+    sections: ["エスカレーション基準"]
+    required_fields: ["条件", "連絡先", "タイムライン"]
+
+# 品質基準
+quality_criteria:
+  - "各シナリオが相互排他的かつ網羅的（MECE）"
+  - "判断基準が明確で再現可能"
+  - "エスカレーション条件が具体的"
+  - "過去事例から学んだ改善点が反映されている"
+  - "意思決定フローが視覚的に理解しやすい"

@@ -1,0 +1,107 @@
+# ポリシードキュメントスキーマ
+# 9251205claude.md セクション2.1準拠
+
+extends: common.yaml
+type: policy
+description: "組織の方針とコンプライアンス要件を定義するドキュメント"
+
+# ポリシー固有フロントマターフィールド
+frontmatter:
+  required:
+    - name: classification
+      type: enum
+      values: [internal, confidential, public]
+      description: "情報分類"
+
+    - name: effective_date
+      type: date
+      format: "YYYY-MM-DD"
+      description: "発効日"
+
+    - name: review_frequency
+      type: enum
+      values: [quarterly, semi-annual, annual, biennial]
+      description: "レビュー頻度"
+
+  optional:
+    - name: approval_signatures
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: "承認者の役職"
+          date:
+            type: date
+            description: "承認日"
+      description: "承認署名リスト"
+
+    - name: frameworks
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: "コンプライアンスフレームワーク名（例: ISO 27001:2022, NIST CSF）"
+          controls:
+            type: array
+            description: "対応するコントロール番号"
+      description: "コンプライアンスマッピング"
+
+# 必須セクション
+required_sections:
+  - name: "目的（Purpose）"
+    description: "このポリシーが存在する理由を明確に説明"
+    order: 1
+    validation:
+      min_words: 50
+      must_contain: ["目的", "理由"]
+
+  - name: "適用範囲（Scope）"
+    description: "対象となる人員・システム・プロセスを定義"
+    order: 2
+    validation:
+      must_contain_list: true
+
+  - name: "役割と責任（Roles & Responsibilities）"
+    description: "責任マトリクス（テーブル形式推奨）"
+    order: 3
+    validation:
+      must_contain_table: true
+
+  - name: "ポリシー声明（Policy Statements）"
+    description: "明確な指令を番号付きリストで記載"
+    order: 4
+    validation:
+      must_contain_numbered_list: true
+
+  - name: "コンプライアンス要件"
+    description: "規制マッピングとコントロール参照"
+    order: 5
+
+  - name: "執行（Enforcement）"
+    description: "違反時の結果と対応プロセス"
+    order: 6
+
+  - name: "レビュースケジュール"
+    description: "次回見直し日と頻度"
+    order: 7
+
+# 任意セクション
+optional_sections:
+  - name: "例外処理"
+    description: "ポリシー例外の申請プロセス"
+
+  - name: "関連SOP"
+    description: "このポリシーを実装するSOPへのリンク"
+
+# スタイルガイドライン
+style:
+  tone: formal
+  voice: active
+  person: third  # 三人称
+  warnings:
+    - "曖昧な表現（〜すべき、〜が望ましい）を避け、明確な指令を使用"
+    - "例外なく適用される場合は「必ず」「常に」を使用"

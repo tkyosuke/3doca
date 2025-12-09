@@ -1,0 +1,124 @@
+# トラブルシューティングスキーマ
+# 問題解決記録と再発防止
+
+document_type: troubleshooting
+version: "1.0"
+description: "トラブルシューティングドキュメントの構造定義 - 問題の診断から解決、予防策までを記録"
+template_file: "03troubleshooting-template.md"
+
+# 必須セクション
+sections:
+  required:
+    - name: "概要"
+      purpose: "問題の概要と影響範囲を説明"
+      min_words: 30
+      contains:
+        - "問題の概要"
+        - "影響範囲"
+        - "緊急度"
+
+    - name: "症状"
+      purpose: "問題の具体的な症状と検出方法"
+      contains:
+        - "観察された症状"
+        - "エラーメッセージ"
+        - "再現条件"
+
+    - name: "根本原因"
+      purpose: "問題の根本的な原因分析"
+      contains:
+        - "原因の特定"
+        - "原因の検証方法"
+
+    - name: "解決手順"
+      purpose: "問題を解決するための具体的な手順"
+      min_subsections: 1
+      subsection_structure:
+        - "手順説明"
+        - "コマンド/操作"
+        - "確認方法"
+
+    - name: "検証方法"
+      purpose: "問題が解決されたことを確認する方法"
+      requires_checklist: true
+
+    - name: "予防策"
+      purpose: "再発防止のための対策"
+      contains:
+        - "短期対策"
+        - "長期対策"
+
+  optional:
+    - name: "影響分析"
+      purpose: "問題による影響の詳細分析"
+
+    - name: "タイムライン"
+      purpose: "問題発生から解決までの時系列"
+
+    - name: "教訓と改善点"
+      purpose: "今後に活かすべき学び"
+
+    - name: "添付資料"
+      purpose: "ログ、スクリーンショット等の証拠"
+
+    - name: "関連情報"
+      purpose: "関連する問題やドキュメント"
+
+# セクション順序（推奨）
+section_order:
+  - "概要"
+  - "症状"
+  - "根本原因"
+  - "解決手順"
+  - "検証方法"
+  - "予防策"
+  - "関連情報"
+  - "影響分析"
+  - "タイムライン"
+  - "教訓と改善点"
+  - "添付資料"
+
+# セクション間依存関係
+dependencies:
+  - if: "根本原因"
+    then: "症状"
+    reason: "原因分析は症状の観察に基づく"
+
+  - if: "解決手順"
+    then: "根本原因"
+    reason: "解決策は原因に対処するもの"
+
+  - if: "検証方法"
+    then: "解決手順"
+    reason: "検証は解決手順の効果を確認する"
+
+  - if: "予防策"
+    then: "根本原因"
+    reason: "予防策は原因の再発を防ぐ"
+
+  - if: "教訓と改善点"
+    then: ["根本原因", "解決手順"]
+    reason: "教訓は原因分析と解決過程から導出される"
+
+# 制約条件
+constraints:
+  - type: "error_message_documented"
+    sections: ["症状"]
+    reason: "検索可能性のためエラーメッセージを明記"
+
+  - type: "code_block_required"
+    sections: ["解決手順"]
+    reason: "コピペ可能な解決コマンド"
+
+  - type: "timeline_format"
+    sections: ["タイムライン"]
+    format: "ISO 8601 or relative time"
+
+# 品質基準
+quality_criteria:
+  - "症状が具体的で検索可能"
+  - "エラーメッセージがそのまま記載されている"
+  - "根本原因が論理的に説明されている"
+  - "解決手順が再現可能"
+  - "予防策が実行可能"
+  - "将来の類似問題で参照されやすい構造"

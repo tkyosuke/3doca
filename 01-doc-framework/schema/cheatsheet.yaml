@@ -1,0 +1,166 @@
+# チートシートスキーマ v2.0
+# 9251205claude.md セクション2.5準拠
+# 情報密度を最大化したクイックリファレンスカード
+
+extends: common.yaml
+document_type: cheatsheet
+version: "2.0"
+description: "チートシートの構造定義 - 単一ページまたは単一画面で、テーブル形式で整理された情報密度の高いクイックリファレンス"
+template_file: "05cheatsheet-template.md"
+
+# =============================================================================
+# チートシート固有フロントマターフィールド
+# =============================================================================
+frontmatter:
+  required:
+    - name: cheatsheet_id
+      type: string
+      pattern: "^CS-[A-Z]{2,4}-\\d{3}$"
+      description: "チートシート識別子（例: CS-PSQL-001）"
+
+    - name: technology
+      type: string
+      description: "対象技術とバージョン（例: PostgreSQL 15+）"
+
+  optional:
+    - name: format
+      type: enum
+      values: [single_page, multi_page, interactive]
+      default: single_page
+      description: "フォーマット"
+
+    - name: print_optimized
+      type: boolean
+      default: true
+      description: "印刷最適化フラグ"
+
+# =============================================================================
+# 設計原則
+# =============================================================================
+design_principles:
+  - "テーブルを多用（コマンド | 説明 | 例）"
+  - "関連コマンドを論理的にグループ化"
+  - "一般的なフラグとオプションを含める"
+  - "非自明な動作に対する「注意」警告を追加"
+  - "単一ページ/画面に収まるよう情報を厳選"
+
+# =============================================================================
+
+# 必須セクション
+sections:
+  required:
+    - name: "最頻出コマンド TOP 5"
+      purpose: "最もよく使う操作を先頭に配置"
+      requires_table: true
+      max_items: 5
+
+    - name: "クイックスタート"
+      purpose: "すぐに使い始めるための最小手順"
+      max_words: 200
+      contains:
+        - "インストール/セットアップ"
+        - "基本的な使い方"
+
+    - name: "基本コマンド"
+      purpose: "基本操作のコマンド一覧"
+      requires_table: true
+
+  optional:
+    - name: "頻出パターン"
+      purpose: "よく使う操作パターンとその例"
+
+    - name: "設定スニペット"
+      purpose: "コピペ可能な設定例"
+      requires_code_block: true
+
+    - name: "データ解析向けクイックリファレンス"
+      purpose: "データ解析特有の操作"
+
+    - name: "クイックトラブルシュート"
+      purpose: "よくあるエラーと解決策（簡潔版）"
+      max_items: 5
+
+    - name: "ベストプラクティス"
+      purpose: "推奨される使い方のポイント"
+
+    - name: "関連リンク"
+      purpose: "公式ドキュメントや詳細リソース"
+
+    - name: "バージョン別の違い"
+      purpose: "バージョンによる違いの注意点"
+
+    - name: "応用例"
+      purpose: "実践的な使用例"
+
+    - name: "チートシート印刷版"
+      purpose: "1ページに収まる印刷用フォーマット"
+
+# セクション順序（推奨）
+section_order:
+  - "最頻出コマンド TOP 5"
+  - "クイックスタート"
+  - "基本コマンド"
+  - "頻出パターン"
+  - "設定スニペット"
+  - "データ解析向けクイックリファレンス"
+  - "クイックトラブルシュート"
+  - "ベストプラクティス"
+  - "関連リンク"
+  - "バージョン別の違い"
+  - "応用例"
+  - "チートシート印刷版"
+
+# セクション間依存関係
+dependencies:
+  - if: "頻出パターン"
+    then: "基本コマンド"
+    reason: "パターンは基本コマンドの組み合わせ"
+
+  - if: "応用例"
+    then: "基本コマンド"
+    reason: "応用例は基本コマンドを使用"
+
+  - if: "クイックトラブルシュート"
+    then: "基本コマンド"
+    reason: "トラブルシュートは基本操作の問題を扱う"
+
+# 制約条件
+constraints:
+  - type: "table_format_required"
+    sections: ["最頻出コマンド TOP 5", "基本コマンド"]
+    reason: "スキャンしやすさのため表形式必須"
+
+  - type: "max_section_length"
+    sections: ["クイックスタート"]
+    max_words: 200
+    reason: "簡潔さを保つ"
+
+  - type: "code_block_required"
+    sections: ["設定スニペット", "応用例"]
+    reason: "コピペ可能性"
+
+  - type: "single_page_target"
+    sections: ["チートシート印刷版"]
+    reason: "印刷時に1ページに収まる"
+
+# フォーマット基準
+format_requirements:
+  table_columns:
+    command_table:
+      - "コマンド"
+      - "説明"
+      - "例"
+    troubleshoot_table:
+      - "症状"
+      - "原因"
+      - "解決策"
+
+# 品質基準
+quality_criteria:
+  - "最頻出項目が先頭に配置されている"
+  - "表形式で視認性が高い"
+  - "コマンドがコピペ可能"
+  - "説明が簡潔（1行以内推奨）"
+  - "関連するコマンドがグループ化されている"
+  - "印刷して手元に置ける形式"
+  - "検索しやすいキーワードが含まれている"

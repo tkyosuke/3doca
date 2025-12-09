@@ -1,0 +1,127 @@
+# 標準作業手順書（SOP）スキーマ
+# 9251205claude.md セクション2.2準拠
+
+extends: common.yaml
+type: sop
+description: "ポリシー要件を再現可能なプロセスに変換するドキュメント"
+
+# SOP固有フロントマターフィールド
+frontmatter:
+  required:
+    - name: estimated_duration
+      type: string
+      pattern: "^\\d+-\\d+[時間分秒]$"
+      description: "推定所要時間（例: 2-4時間, 30-45分）"
+
+    - name: roles
+      type: array
+      min_items: 1
+      description: "実行に必要な役割（例: CFDエンジニア, 品質レビュアー）"
+
+  optional:
+    - name: prerequisites
+      type: object
+      properties:
+        access:
+          type: array
+          description: "必要なアクセス権限"
+        tools:
+          type: array
+          description: "必要なツールとバージョン"
+        knowledge:
+          type: array
+          description: "前提知識・トレーニング"
+      description: "前提条件"
+
+# 必須セクション
+required_sections:
+  - name: "目的"
+    description: "この手順が何を達成するかを2-3文で説明"
+    order: 1
+    validation:
+      max_sentences: 5
+
+  - name: "適用範囲"
+    description: "対象システム・プロセスを明確に定義"
+    order: 2
+
+  - name: "前提条件"
+    description: "アクセス、ツール、知識要件をテーブル形式で記載"
+    order: 3
+    format: |
+      | 要件 | 検証方法 |
+      |------|----------|
+      | ... | ... |
+    validation:
+      must_contain_table: true
+
+  - name: "手順"
+    description: "番号付きステップで記載。各ステップに目的・コマンド・期待出力・検証を含む"
+    order: 4
+    format: |
+      ### ステップN: タイトル
+      **目的:** このステップが何を達成するか
+
+      ```bash
+      コマンド
+      ```
+
+      **期待出力:**
+      ```
+      出力例
+      ```
+
+      **検証:** 成功確認方法
+
+      ⚠️ **停止条件**: 失敗時の対応（該当する場合）
+    validation:
+      must_contain_numbered_steps: true
+      each_step_must_have:
+        - "目的"
+        - "コマンドまたは操作"
+        - "期待出力"
+
+  - name: "品質メトリクス"
+    description: "定量的な閾値と検証コマンドをテーブル形式で記載"
+    order: 5
+    format: |
+      | メトリクス | 閾値 | 検証コマンド |
+      |-----------|------|--------------|
+      | ... | ... | ... |
+    validation:
+      must_contain_table: true
+
+  - name: "トラブルシューティング"
+    description: "問題・原因・解決策をテーブル形式で記載"
+    order: 6
+    format: |
+      | 問題 | 原因 | 解決策 |
+      |------|------|--------|
+      | ... | ... | ... |
+    validation:
+      must_contain_table: true
+
+  - name: "ロールバック手順"
+    description: "失敗時の復旧方法をコマンド付きで記載"
+    order: 7
+    validation:
+      must_contain_code_block: true
+
+# 任意セクション
+optional_sections:
+  - name: "関連SOP"
+    description: "関連する他のSOPへのリンク"
+
+  - name: "変更履歴"
+    description: "手順の更新履歴"
+
+# スタイルガイドライン
+style:
+  tone: instructional
+  voice: active
+  person: second  # 二人称（〜してください）
+  warnings:
+    - "1ステップにつき1アクション"
+    - "すべてのコマンドの後に期待出力を含める"
+    - "破壊的操作には⚠️警告をマーク"
+    - "構造化情報にはテーブルを使用"

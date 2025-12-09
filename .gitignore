@@ -1,0 +1,44 @@
+# Serena MCP
+.serena/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Vale sync-generated styles (auto-downloaded)
+styles/Google/
+styles/write-good/
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files / archives
+*.7z
+*.zip
+*.tar.gz
+vectors.db
+models/
+
+# Config (project-specific)
+config.json

@@ -1,0 +1,182 @@
+# ADR（Architecture Decision Record）スキーマ v2.0
+# 9251205claude.md セクション2.6準拠
+# MADR 4.0形式に準拠した技術決定記録
+
+extends: common.yaml
+document_type: adr
+version: "2.0"
+description: "ADRの構造定義 - 技術的選択の理由（Why）を記録。MADR 4.0形式が完全性と使いやすさのバランスが最も良い"
+template_file: "04adr-template.md"
+reference: "https://adr.github.io/madr/"
+
+# =============================================================================
+# ADR固有フロントマターフィールド
+# =============================================================================
+frontmatter:
+  required:
+    - name: adr_id
+      type: string
+      pattern: "^ADR-\\d{4}$"
+      description: "ADR識別子（例: ADR-0042）"
+
+    - name: slug
+      type: string
+      description: "URLスラッグ（例: postgresql-ocean-model-storage）"
+
+    - name: decision_type
+      type: enum
+      values: [technology-choice, architecture-pattern, process-change, deprecation]
+      description: "決定タイプ"
+
+  optional:
+    - name: supersedes
+      type: string
+      description: "このADRが置き換えるADR ID"
+
+    - name: superseded_by
+      type: string
+      description: "このADRを置き換えるADR ID"
+
+    - name: category
+      type: enum
+      values: [storage, security, infrastructure, integration, performance]
+      description: "カテゴリ分類"
+
+    - name: decision_makers
+      type: array
+      description: "決定者リスト（例: @data-team, @ocean-modeling）"
+
+    - name: consulted
+      type: array
+      description: "相談先リスト"
+
+    - name: related_adrs
+      type: array
+      description: "関連ADR IDリスト"
+
+# =============================================================================
+
+# 必須セクション
+sections:
+  required:
+    - name: "背景と課題"
+      purpose: "決定が必要となった背景と解決すべき課題"
+      min_words: 50
+      contains:
+        - "背景"
+        - "課題"
+        - "制約条件"
+
+    - name: "評価基準"
+      purpose: "選択肢を評価するための基準"
+      contains:
+        - "機能要件"
+        - "非機能要件"
+        - "重み付け"
+
+    - name: "検討した選択肢"
+      purpose: "検討した各選択肢の詳細"
+      min_subsections: 2
+      subsection_structure:
+        - "概要"
+        - "メリット"
+        - "デメリット"
+        - "リスク"
+
+    - name: "選択肢比較表"
+      purpose: "選択肢を評価基準で比較した表"
+      requires_table: true
+
+    - name: "決定"
+      purpose: "採用する選択肢と決定理由"
+      contains:
+        - "決定内容"
+        - "決定理由"
+        - "決定日"
+        - "決定者"
+
+    - name: "影響"
+      purpose: "決定による影響とトレードオフ"
+      contains:
+        - "ポジティブな影響"
+        - "ネガティブな影響"
+        - "トレードオフ"
+
+  optional:
+    - name: "実装計画"
+      purpose: "決定を実装するための計画"
+
+    - name: "補足情報"
+      purpose: "参考資料、検証結果など"
+
+    - name: "レビューと更新"
+      purpose: "ADRの見直し条件と履歴"
+
+# セクション順序（推奨）
+section_order:
+  - "背景と課題"
+  - "評価基準"
+  - "検討した選択肢"
+  - "選択肢比較表"
+  - "決定"
+  - "影響"
+  - "実装計画"
+  - "補足情報"
+  - "レビューと更新"
+
+# セクション間依存関係
+dependencies:
+  - if: "評価基準"
+    then: "背景と課題"
+    reason: "評価基準は課題に基づいて定義される"
+
+  - if: "検討した選択肢"
+    then: "背景と課題"
+    reason: "選択肢は課題を解決するためのもの"
+
+  - if: "選択肢比較表"
+    then: ["評価基準", "検討した選択肢"]
+    reason: "比較表は評価基準で選択肢を評価する"
+
+  - if: "決定"
+    then: "選択肢比較表"
+    reason: "決定は比較結果に基づく"
+
+  - if: "影響"
+    then: "決定"
+    reason: "影響は決定の結果として発生する"
+
+  - if: "実装計画"
+    then: "決定"
+    reason: "実装は決定内容を具体化する"
+
+# 制約条件
+constraints:
+  - type: "min_options"
+    sections: ["検討した選択肢"]
+    value: 2
+    reason: "最低2つの選択肢を検討する"
+
+  - type: "comparison_table_required"
+    sections: ["選択肢比較表"]
+    reason: "客観的な比較のため表形式必須"
+
+  - type: "decision_metadata_required"
+    sections: ["決定"]
+    required_fields: ["決定日", "決定者", "ステータス"]
+
+# ステータス値
+status_values:
+  - "提案中"
+  - "承認済み"
+  - "非推奨"
+  - "置き換え済み"
+
+# 品質基準
+quality_criteria:
+  - "背景と課題が具体的で理解しやすい"
+  - "評価基準が明確で測定可能"
+  - "各選択肢のメリット・デメリットが公平に記載"
+  - "決定理由が論理的で追跡可能"
+  - "将来の見直し条件が明記されている"
+  - "MADR形式に準拠している"

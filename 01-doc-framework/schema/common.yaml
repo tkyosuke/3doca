@@ -1,0 +1,287 @@
+# 共通スキーマ定義 v2.0
+# 9251205claude.mdフレームワーク準拠
+# 全ドキュメントタイプで共有される定義
+
+version: "2.0"
+description: "統一フロントマタースキーマ - RAG最適化・GraphRAG対応"
+based_on: "9251205claude.md - AIエージェントによる技術ドキュメント作成フレームワーク"
+
+# =============================================================================
+# フロントマター定義
+# =============================================================================
+frontmatter:
+  # ---------------------------------------------------------------------------
+  # 必須フィールド：識別情報
+  # ---------------------------------------------------------------------------
+  required:
+    - name: document_id
+      type: string
+      pattern: "^[A-Z]{2,4}-[A-Z]{2,4}-\\d{3}$"
+      description: "一意識別子（例: RUN-DB-001, PLB-INC-002, SOP-CFD-001）"
+      examples:
+        - "POL-SEC-001"  # ポリシー-セキュリティ-001
+        - "SOP-CFD-001"  # SOP-CFD-001
+        - "PLB-INC-001"  # プレイブック-インシデント-001
+        - "RUN-WSL-001"  # ランブック-WSL-001
+        - "CS-PSQL-001"  # チートシート-PostgreSQL-001
+        - "ADR-0042"     # ADR-0042
+
+    - name: title
+      type: string
+      max_length: 150
+      description: "人間が読めるドキュメントタイトル"
+
+    - name: type
+      type: enum
+      values: [policy, sop, playbook, runbook, cheatsheet, adr, process, troubleshooting, guide, specification]
+      description: "ドキュメントタイプ"
+
+    - name: version
+      type: string
+      pattern: "^\\d+\\.\\d+(\\.\\d+)?$"
+      description: "セマンティックバージョニング（例: 1.0.0, 2.1）"
+
+    - name: status
+      type: enum
+      values: [draft, review, approved, active, deprecated, superseded]
+      description: "ドキュメントステータス"
+
+  # ---------------------------------------------------------------------------
+  # 必須フィールド：所有権
+  # ---------------------------------------------------------------------------
+    - name: owner
+      type: string
+      pattern: "^@[\\w-]+$"
+      description: "責任チーム（例: @database-team, @cfd-team）"
+
+    - name: author
+      type: string
+      description: "作成者名"
+
+    - name: created
+      type: date
+      format: "YYYY-MM-DD"
+      description: "作成日"
+
+    - name: updated
+      type: date
+      format: "YYYY-MM-DD"
+      description: "最終更新日"
+
+  # ---------------------------------------------------------------------------
+  # 必須フィールド：RAG最適化
+  # ---------------------------------------------------------------------------
+    - name: tags
+      type: array
+      min_items: 2
+      description: "検索可能なキーワード"
+
+    - name: key_concepts
+      type: array
+      min_items: 1
+      description: "セマンティックマッチング用語（自然言語フレーズ）"
+      examples:
+        - "災害復旧"
+        - "データ保護"
+        - "メッシュ生成"
+
+    - name: summary
+      type: string
+      max_length: 200
+      description: "検索結果とコンテキスト組み立て用の一文説明"
+
+  # ---------------------------------------------------------------------------
+  # 必須フィールド：ドメインコンテキスト
+  # ---------------------------------------------------------------------------
+    - name: domain
+      type: enum
+      values: [infrastructure, security, data, application, scientific, operations, documentation]
+      description: "ドメイン分類"
+
+    - name: audience
+      type: enum
+      values: [developers, operators, architects, scientists, all]
+      description: "対象読者"
+
+  # ---------------------------------------------------------------------------
+  # 任意フィールド：メンテナンス
+  # ---------------------------------------------------------------------------
+  optional:
+    - name: next_review
+      type: date
+      format: "YYYY-MM-DD"
+      description: "次回レビュー予定日"
+
+    - name: review_cycle_days
+      type: integer
+      default: 180
+      description: "レビューサイクル日数（デフォルト180日）"
+
+  # ---------------------------------------------------------------------------
+  # 任意フィールド：関連ドキュメント（GraphRAG対応）
+  # ---------------------------------------------------------------------------
+    - name: related_docs
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: "関連ドキュメントへの相対パス"
+          relationship:
+            type: enum
+            values: [implements, governed-by, references, depends-on, escalates-to, supersedes, superseded-by]
+            description: "関係性タイプ"
+      description: "関連ドキュメント配列（グラフエッジ）"
+      examples:
+        - path: "/adr/0042-postgresql.md"
+          relationship: "implements"
+        - path: "/runbooks/db-backup.md"
+          relationship: "references"
+
+    - name: supersedes
+      type: string
+      description: "このドキュメントが置き換えるドキュメントID"
+
+    - name: superseded_by
+      type: string
+      description: "このドキュメントを置き換えるドキュメントID"
+
+  # ---------------------------------------------------------------------------
+  # 任意フィールド：優先度・分類
+  # ---------------------------------------------------------------------------
+    - name: priority
+      type: enum
+      values: [framework, template, canonical, example, reference, general]
+      default: general
+      description: "ドキュメント優先度（RAG boost用）"
+
+    - name: is_canonical
+      type: boolean
+      default: false
+      description: "基準ドキュメントフラグ"
+
+    - name: difficulty
+      type: enum
+      values: [beginner, intermediate, advanced]
+      description: "難易度"
+
+    - name: section_schema
+      type: string
+      description: "スキーマファイルへの相対パス（自動推定可能）"
+
+# =============================================================================
+# relationship値の標準定義
+# =============================================================================
+relationship_types:
+  implements:
+    description: "このドキュメントがそのドキュメントを実装する"
+    example: "ランブック → ADR"
+    direction: "child → parent"
+
+  governed-by:
+    description: "このドキュメントがそのドキュメントの管理下にある"
+    example: "SOP → ポリシー"
+    direction: "child → parent"
+
+  references:
+    description: "単純な参照関係"
+    example: "プレイブック → ランブック"
+    direction: "bidirectional"
+
+  depends-on:
+    description: "前提条件として依存する"
+    example: "ランブックA → ランブックB"
+    direction: "child → parent"
+
+  escalates-to:
+    description: "失敗時のエスカレーション先"
+    example: "ランブック → プレイブック"
+    direction: "child → parent"
+
+  supersedes:
+    description: "このドキュメントが置き換える"
+    example: "新ADR → 旧ADR"
+    direction: "new → old"
+
+  superseded-by:
+    description: "このドキュメントを置き換えるもの"
+    example: "旧ADR → 新ADR"
+    direction: "old → new"
+
+# =============================================================================
+# 共通セクション定義
+# =============================================================================
+common_sections:
+  - name: "関連ドキュメント"
+    purpose: "参照すべき他のドキュメントへのリンク"
+    required: false
+
+  - name: "変更履歴"
+    purpose: "ドキュメントの更新履歴"
+    required: false
+
+# =============================================================================
+# Mermaid設定
+# =============================================================================
+mermaid:
+  required_init: "%%{init: {'theme': 'dark'}}%%"
+  recommended_colors:
+    done: "#4ade80"
+    in_progress: "#fbbf24"
+    not_started: "#a78bfa"
+    error: "#f87171"
+  dark_mode_optimization:
+    pieOuterStrokeColor: "#1E1E2E"
+    pieOuterStrokeWidth: "0.5px"
+    primaryBorderColor: "#1E1E2E"
+    lineColor: "#89B4FA"
+
+# =============================================================================
+# RAGチャンキングガイドライン
+# =============================================================================
+rag_chunking:
+  concept_explanation:
+    chunk_size: "256-512 tokens"
+    overlap: "15%"
+    reason: "より広いコンテキストが必要"
+
+  step_by_step:
+    chunk_size: "128-256 tokens"
+    overlap: "10%"
+    reason: "精密な検索"
+
+  code_examples:
+    chunk_size: "preserve"
+    overlap: "N/A"
+    reason: "コードブロックを分割しない"
+
+  api_reference:
+    chunk_size: "256 tokens"
+    overlap: "10%"
+    reason: "精度とコンテキストのバランス"
+
+# =============================================================================
+# 後方互換性マッピング
+# =============================================================================
+backward_compatibility:
+  legacy_fields:
+    category:
+      maps_to: type
+      mapping:
+        process: process
+        playbook: playbook
+        runbook: runbook
+        reference: guide
+        concepts: guide
+        decision: adr
+        troubleshooting: troubleshooting
+
+    created_at:
+      maps_to: created
+
+    updated_at:
+      maps_to: updated
+
+    description:
+      maps_to: summary
