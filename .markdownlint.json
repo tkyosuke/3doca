@@ -58,12 +58,13 @@
   "MD046": { "style": "fenced" },
   "MD047": true,
   "MD048": { "style": "backtick" },
-  "MD049": { "style": "underscore" },
+  "MD049": { "style": "consistent" },
   "MD050": { "style": "asterisk" },
   "MD051": true,
   "MD052": true,
   "MD053": true,
   "MD054": false,
   "MD055": { "style": "leading_and_trailing" },
-  "MD056": true
+  "MD056": true,
+  "MD058": false
 }

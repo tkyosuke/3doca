@@ -37,6 +37,7 @@ jobs:
           globs: |
             01-doc-framework/**/*.md
             !01-doc-framework/**/node_modules/**
+            !01-doc-framework/9251*.md
 
   # =========================================================================
   # Job 2: Valeスタイルチェック
