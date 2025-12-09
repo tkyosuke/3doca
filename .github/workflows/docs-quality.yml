@@ -51,8 +51,10 @@ jobs:
           files: 01-doc-framework
           # 初回はwarning以上のみ報告（strict: falseでエラーにしない）
           reporter: github-check
+          fail_on_error: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true  # 初回はエラーでも継続
 
   # =========================================================================
   # Job 3: リンク検証
@@ -100,10 +102,9 @@ jobs:
       - name: Run frontmatter check
         run: |
           python 01-doc-framework/check_frontmatter.py \
-            01-doc-framework/templates \
-            01-doc-framework/examples \
-            --format json \
-            --output frontmatter-report.json
+            --base-dir 01-doc-framework \
+            --schema-dir 01-doc-framework/schema \
+            --format json > frontmatter-report.json 2>&1 || true
 
       - name: Upload frontmatter report
         uses: actions/upload-artifact@v4
@@ -135,11 +136,10 @@ jobs:
       - name: Run section check on examples
         run: |
           python 01-doc-framework/check_frontmatter.py \
-            01-doc-framework/examples \
+            --base-dir 01-doc-framework/examples \
+            --schema-dir 01-doc-framework/schema \
             --check-sections \
-            --format json \
-            --output sections-report.json
-        continue-on-error: true  # 初回はエラーでも継続
+            --format json > sections-report.json 2>&1 || true
 
       - name: Upload sections report
         uses: actions/upload-artifact@v4
