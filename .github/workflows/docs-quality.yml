@@ -11,6 +11,9 @@ on:
       - main
     paths:
       - '01-doc-framework/**/*.md'
+      - '.github/workflows/*.yml'
+      - '.markdownlint.json'
+      - '.vale.ini'
 
 # 同時実行を制限（PRごとに1つのワークフローのみ）
 concurrency:
