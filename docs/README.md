@@ -21,7 +21,7 @@ author: Claude Code
 
 ## ディレクトリ構造
 
-```
+```text
 docs/
 ├── 01_knowledge/           # Diátaxis軸（理解・習得）
 │   ├── 01-concepts/        # 説明（なぜ・何）- Tier 4

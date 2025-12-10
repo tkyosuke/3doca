@@ -836,7 +836,7 @@ related:
 ### 4. statusの使い分け
 
 **推奨フロー**:
-```
+```text
 draft（作成中、HIGH/MEDIUM多数）
   ↓
 review（レビュー依頼、HIGH解消済み）

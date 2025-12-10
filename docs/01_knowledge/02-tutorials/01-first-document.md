@@ -60,7 +60,7 @@ ls -la docs/01_knowledge/ docs/02_operations/ docs/03_architecture/ docs/_templa
 ```
 
 期待される出力：
-```
+```text
 docs/01_knowledge/
 docs/02_operations/
 docs/03_architecture/
@@ -120,7 +120,7 @@ ls docs/_templates/01_knowledge/
 ```
 
 期待される出力：
-```
+```text
 01-concept.md
 02-tutorial.md
 03-how-to.md
@@ -412,7 +412,7 @@ flowchart TD
 
 CLAUDE.md に記載されているチェックリストを確認：
 
-```
+```markdown
 □ フロントマターは完全か（type, category, tags, summary）
 □ ギャップマーカーは適切に配置されているか
 □ 内部リンクは実在するファイルを指しているか
@@ -440,7 +440,7 @@ grep -n "\[TODOCS:\|\[NEEDS_EXAMPLE:\|\[NEEDS_VERIFICATION:\|\[INCOMPLETE:\|\[LI
 ```
 
 期待される出力：
-```
+```text
 15:[NEEDS_VERIFICATION: データサイズの閾値は環境依存。目安として記載]
 25:[INCOMPLETE: 可視化パイプラインの詳細説明が必要]
 30:[NEEDS_EXAMPLE: ParaViewでのパイプライン設定例]

@@ -208,7 +208,7 @@ echo "LINK_NEEDED: $(grep -ro "\[LINK_NEEDED:" docs/ | wc -l)"
 
 ## 優先度判断フロー
 
-```
+```text
 質問: この情報は確実か？
   ├─ NO → 確認可能？
   │        ├─ YES → [NEEDS_VERIFICATION]

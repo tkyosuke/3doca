@@ -76,7 +76,7 @@ echo "LINK_NEEDED: $(grep -o "\[LINK_NEEDED:" gap_markers_report.txt | wc -l)"
 ```
 
 **期待される出力**：
-```
+```text
 === ギャップマーカー統計 ===
 TODOCS: 15
 NEEDS_EXAMPLE: 23

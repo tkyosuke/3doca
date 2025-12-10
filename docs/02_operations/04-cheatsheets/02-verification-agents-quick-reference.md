@@ -84,7 +84,7 @@ flowchart LR
 
 ## 権限モデル
 
-```
+```text
 ┌────────────────────────────────────────────────┐
 │  gap-detector        : READ docs              │
 │  fact-checker        : READ docs + src        │
