@@ -484,7 +484,7 @@ sequenceDiagram
 - **テンプレート一覧**: [_templates/00-INDEX.md](../../_templates/00-INDEX.md)
 - **スキーマ定義**: [01-FRONTMATTER_SCHEMA.md](../../_templates/01-FRONTMATTER_SCHEMA.md)
 - **ガイドライン**: [CLAUDE.md](/mnt/j/pcloud_sync/5agent/1conf/3doca/CLAUDE.md)
-- **運用プロセス**: [ドキュメント作成プロセス](../../02_operations/01-processes/documentation-creation-process.md)
+- **運用プロセス**: [ドキュメント作成プロセス](../../02_operations/01-processes/01-document-creation-process.md)
 
 ---
 

@@ -137,7 +137,7 @@ Tier 4: 設計思想と背景の理解
 | **時間目標** | タスク依存 |
 | **ビジュアル/テキスト比率** | 40/60 |
 | **対象読者** | 基本習熟済みのユーザー |
-| **対応フォルダ** | `01_knowledge/how-to/`, `02_operations/` |
+| **対応フォルダ** | `01_knowledge/03-how-to/`, `02_operations/` |
 
 **必須要素**:
 - 前提条件を明確に
@@ -172,7 +172,7 @@ Tier 4: 設計思想と背景の理解
 | **時間目標** | 深い理解 |
 | **ビジュアル/テキスト比率** | 25/75 |
 | **対象読者** | アーキテクト、メンテナー、シニア開発者 |
-| **対応フォルダ** | `01_knowledge/concepts/`, `03_architecture/` |
+| **対応フォルダ** | `01_knowledge/01-concepts/`, `03_architecture/` |
 
 **必須要素**:
 - アーキテクチャ決定記録（ADR）
@@ -190,13 +190,13 @@ Tier 4: 設計思想と背景の理解
 
 | フォルダ | ティア | Diátaxis | 運用階層 | C4 |
 |----------|--------|----------|---------|-----|
-| `01_knowledge/concepts/` | 4 | Explanation | - | - |
+| `01_knowledge/01-concepts/` | 4 | Explanation | - | - |
 | `01_knowledge/tutorials/` | 1 | Tutorial | - | - |
-| `01_knowledge/how-to/` | 2 | How-to | - | - |
+| `01_knowledge/03-how-to/` | 2 | How-to | - | - |
 | `01_knowledge/reference/` | 3 | Reference | - | - |
-| `02_operations/processes/` | 2 | - | プロセス | - |
-| `02_operations/playbooks/` | 2 | - | プレイブック | - |
-| `02_operations/runbooks/` | 2 | - | ランブック | - |
+| `02_operatio../01-processes/` | 2 | - | プロセス | - |
+| `02_operations/02-playbooks/` | 2 | - | プレイブック | - |
+| `02_operatio../03-runbooks/` | 2 | - | ランブック | - |
 | `02_operations/cheatsheets/` | 0/3 | - | チートシート | - |
 | `03_architecture/context/` | 0 | - | - | Level 1 |
 | `03_architecture/containers/` | 4 | - | - | Level 2 |
@@ -293,8 +293,8 @@ Tier 4: 数値スキームの選択理由、収束条件の設計思想
 
 ## 関連リンク
 
-- [ギャップマーカー仕様](./GAP-MARKER-SPEC.md)
-- [移行マップ](./MIGRATION-MAP.md)
+- [ギャップマーカー仕様](./01-GAP-MARKER-SPEC.md)
+- [移行マップ](./03-MIGRATION-MAP.md)
 - [Diátaxis軸](../../01_knowledge/README.md)
 - [運用軸](../../02_operations/README.md)
 - [C4軸](../../03_architecture/README.md)

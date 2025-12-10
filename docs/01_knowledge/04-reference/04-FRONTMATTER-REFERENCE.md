@@ -269,7 +269,7 @@ keywords:
 related:
   - ./mesh-parameters-reference.md         # 同じフォルダ
   - ../02-tutorials/iric-quickstart.md     # 親フォルダ経由
-  - ../../02_operations/playbooks/mesh-troubleshooting.md  # 別軸
+  - ../../02_operations/02-playbooks/mesh-troubleshooting.md  # 別軸
 ```
 
 **パス記法のルール**:

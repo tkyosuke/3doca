@@ -35,6 +35,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 ## プロセスフロー
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     Start([開始]) --> A[TODOCS: ステップ1]
     A --> B{TODOCS: 判断}

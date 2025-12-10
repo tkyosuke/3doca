@@ -28,6 +28,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 ## コンポーネント図
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
     subgraph Container["[TODOCS: コンテナ名]"]
         subgraph Interface["インターフェース層"]
@@ -100,6 +101,7 @@ class [TODOCS: ClassName]:
 ## クラス図
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 classDiagram
     class [TODOCS: ClassName] {
         +[TODOCS: attribute]: [type]
@@ -127,6 +129,7 @@ classDiagram
 ### [TODOCS: 処理名]
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 sequenceDiagram
     participant C as Controller
     participant V as Validator

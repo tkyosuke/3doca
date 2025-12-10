@@ -109,9 +109,9 @@ docs/01_knowledge/03-how-to/      # ハウツー
 docs/01_knowledge/04-reference/   # リファレンス
 
 # 運用軸の例
-docs/02_operations/processes/     # プロセス
-docs/02_operations/playbooks/     # プレイブック
-docs/02_operations/runbooks/      # ランブック
+docs/02_operatio../01-processes/     # プロセス
+docs/02_operations/02-playbooks/     # プレイブック
+docs/02_operatio../03-runbooks/      # ランブック
 docs/02_operations/cheatsheets/   # チートシート
 ```
 
@@ -124,7 +124,7 @@ cp docs/_templates/01_knowledge/03-how-to.md \
 
 # 例: プレイブックを作成
 cp docs/_templates/02_operations/playbook-template.md \
-   docs/02_operations/playbooks/data-quality-issue.md
+   docs/02_operations/02-playbooks/data-quality-issue.md
 ```
 
 **命名規則**:
@@ -407,7 +407,7 @@ cp docs/_templates/01_knowledge/03-how-to.md \
 | ギャップマーカーをどこに置くべきか不明 | マーカー仕様の理解不足 | [ギャップマーカー仕様](../04-reference/01-GAP-MARKER-SPEC.md)を参照 |
 | リンクが404になる | 相対パスの間違い、ファイル名の間違い | `ls`でファイル存在確認、相対パス計算を見直す |
 
-詳細なトラブルシューティングは[ドキュメント作成プレイブック](../../02_operations/playbooks/)を参照してください。（[LINK_NEEDED: プレイブックへのリンク]）
+詳細なトラブルシューティングは[ドキュメント作成プレイブック](../../02_operations/02-playbooks/)を参照してください。（[LINK_NEEDED: プレイブックへのリンク]）
 
 ## 関連ドキュメント
 

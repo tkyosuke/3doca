@@ -35,6 +35,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 ## 手順概要
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
     A[準備] --> B[実行] --> C[確認]
 ```

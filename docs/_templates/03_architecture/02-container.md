@@ -28,6 +28,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 ## コンテナ図
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
     subgraph System["[TODOCS: システム名]"]
         subgraph Frontend["フロントエンド"]
@@ -97,6 +98,7 @@ flowchart TB
 ### [TODOCS: フロー名]
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 sequenceDiagram
     participant U as ユーザー
     participant UI as フロントエンド

@@ -26,7 +26,7 @@ triggers:
   - "ドキュメントギャップの発見"
 frequency: "随時"
 related:
-  - "../../01_knowledge/concepts/README.md"
+  - "../../01_knowledge/01-concepts/README.md"
   - "../02-playbooks/01-quality-issues-playbook.md"
   - "../../_templates/README.md"
 version: "1.0.0"
@@ -49,6 +49,7 @@ updated: "2025-12-10"
 ## プロセスフロー
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     Start([ドキュメント作成要求]) --> A[Phase 1: 計画]
     A --> B[Phase 2: 調査・収集]
@@ -100,7 +101,7 @@ flowchart TD
 
 2. **ドキュメントタイプ選定**
    - Diátaxis軸: concepts/tutorials/how-to/reference
-   - 運用軸: processes/playbooks/runbooks/cheatsheets
+   - 運用軸: process../02-playboo../03-runbooks/cheatsheets
    - C4軸: context/containers/components
 
 3. **テンプレート選択**
@@ -112,7 +113,7 @@ flowchart TD
 - [ ] テンプレートファイルが作成済み
 - [ ] スコープ（含む/含まない）が定義済み
 
-**実行手順**: [../../01_knowledge/how-to/README.md](../../01_knowledge/how-to/README.md)
+**実行手順**: [../../01_knowledge/03-how-to/README.md](../../01_knowledge/03-how-to/README.md)
 
 ---
 
@@ -304,7 +305,7 @@ flowchart TD
 
 ### 背景知識
 
-- [Diátaxis概念説明](../../01_knowledge/concepts/README.md)
+- [Diátaxis概念説明](../../01_knowledge/01-concepts/README.md)
 - [LINK_NEEDED: ドキュメント3軸構造（概念）]
 - [LINK_NEEDED: 反ハルシネーション原則（概念）]
 

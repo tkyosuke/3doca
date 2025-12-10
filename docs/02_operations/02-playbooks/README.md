@@ -59,5 +59,5 @@ author: Claude Code
 
 ## 関連リンク
 
-- [プロセス](../processes/README.md)
-- [ランブック](../runbooks/README.md)
+- [プロセス](../01-processes/README.md)
+- [ランブック](../03-runbooks/README.md)

@@ -19,7 +19,7 @@ keywords:
   - operations documentation
   - technical writing
 related:
-  - "../../02_operations/01-processes/documentation-creation-process.md"
+  - "../../02_operations/01-processes/01-document-creation-process.md"
   - "../02-containers/3doca-framework-containers.md"
 version: "1.0.0"
 status: published
@@ -165,8 +165,8 @@ flowchart LR
 
 ## 関連ドキュメント
 
-- **概念説明**: [ドキュメント3軸構造の設計思想](../../01_knowledge/concepts/three-axis-structure-concept.md)
-- **プロセス**: [ドキュメント作成プロセス](../../02_operations/01-processes/documentation-creation-process.md)
+- **概念説明**: [ドキュメント3軸構造の設計思想](../../01_knowledge/01-concepts/01-three-axis-framework.md)
+- **プロセス**: [ドキュメント作成プロセス](../../02_operations/01-processes/01-document-creation-process.md)
 - **ガイドライン**: [CLAUDE.md](/mnt/j/pcloud_sync/5agent/1conf/3doca/CLAUDE.md)
 - **テンプレート一覧**: [_templates/00-INDEX.md](../../_templates/00-INDEX.md)
 

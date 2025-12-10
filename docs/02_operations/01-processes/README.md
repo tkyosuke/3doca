@@ -58,5 +58,5 @@ author: Claude Code
 
 ## 関連リンク
 
-- [プレイブック](../playbooks/README.md)
-- [ランブック](../runbooks/README.md)
+- [プレイブック](../02-playbooks/README.md)
+- [ランブック](../03-runbooks/README.md)

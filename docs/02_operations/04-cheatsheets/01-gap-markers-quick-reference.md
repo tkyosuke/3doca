@@ -11,7 +11,7 @@ keywords:
   - quick reference
 related:
   - ../03-runbooks/01-periodic-document-review.md
-  - ../../01_knowledge/concepts/01-framework-overview.md
+  - ../../01_knowledge/01-concepts/01-framework-overview.md
   - ../../../CLAUDE.md
 version: "1.0.0"
 status: active

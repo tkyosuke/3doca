@@ -55,6 +55,7 @@ last_tested: "[TODOCS: YYYY-MM-DD]"
 ### 3. 初期判断
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     A[状況確認完了] --> B{影響範囲は?}
     B -->|限定的| C[通常対応]
@@ -69,6 +70,7 @@ flowchart TD
 ## 対応フロー
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     Start([発生検知]) --> A[状況確認]
     A --> B{原因特定?}

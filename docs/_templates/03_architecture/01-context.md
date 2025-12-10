@@ -25,6 +25,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 ## システムコンテキスト図
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
     subgraph External["外部システム・ユーザー"]
         User1[("👤 [TODOCS: ユーザー1]")]
@@ -67,6 +68,7 @@ flowchart TB
 ## 主要なデータフロー
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
     A[入力データ] --> B[システム]
     B --> C[出力データ]

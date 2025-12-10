@@ -272,9 +272,9 @@ jobs:
 
 ## 関連リンク
 
-- [ティア設計仕様](./TIER-DESIGN-SPEC.md)
-- [移行マップ](./MIGRATION-MAP.md)
-- [フロントマター拡張仕様](./FRONTMATTER-EXTENSION-SPEC.md)
+- [ティア設計仕様](./02-TIER-DESIGN-SPEC.md)
+- [移行マップ](./03-MIGRATION-MAP.md)
+- [フロントマター拡張仕様](./04-frontmatter-reference.md)
 
 ---
 

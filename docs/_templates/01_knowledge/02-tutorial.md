@@ -57,6 +57,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 [TODOCS: このチュートリアルで行うことの全体像（1-2段落）]
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
     A[開始] --> B[ステップ1]
     B --> C[ステップ2]

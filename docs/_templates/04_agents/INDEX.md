@@ -63,6 +63,7 @@ document-refiner のみがソースドキュメントを修正可能。
 ### New Document Creation / 新規ドキュメント作成
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
     A[Create from<br/>template] --> B[gap-detector]
     B --> C[fact-checker]
@@ -75,6 +76,7 @@ flowchart LR
 ### Existing Document Audit / 既存ドキュメント監査
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
     A[Existing doc] --> B[gap-detector]
     B --> C[fact-checker]
@@ -85,6 +87,7 @@ flowchart LR
 ### Systematic Audit / 体系的監査
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
     A[docs/] --> B[completeness-checker<br/>Level 2-3]
     B --> C[Missing doc list]

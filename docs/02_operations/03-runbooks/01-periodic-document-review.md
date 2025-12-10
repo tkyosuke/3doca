@@ -16,7 +16,7 @@ estimated_time: "30-60分"
 owner: "ドキュメント管理者"
 executor: "技術ライター/開発者"
 related:
-  - ../../01_knowledge/concepts/01-framework-overview.md
+  - ../../01_knowledge/01-concepts/01-framework-overview.md
   - ../04-cheatsheets/01-gap-markers-quick-reference.md
 version: "1.0.0"
 status: active
@@ -325,7 +325,7 @@ rm -f gap_markers_report.txt high_priority_gaps.txt files_with_internal_links.tx
 
 ## 関連ドキュメント
 
-- **フレームワーク概要**: [../../01_knowledge/concepts/01-framework-overview.md](../../01_knowledge/concepts/01-framework-overview.md)
+- **フレームワーク概要**: [../../01_knowledge/01-concepts/01-three-axis-framework.md](../../01_knowledge/01-concepts/01-three-axis-framework.md)
 - **ギャップマーカー早見表**: [../04-cheatsheets/01-gap-markers-quick-reference.md](../04-cheatsheets/01-gap-markers-quick-reference.md)
 - **プロジェクトルール**: [../../../CLAUDE.md](../../../CLAUDE.md)
 - **テンプレート**: [../../_templates/](../../_templates/)

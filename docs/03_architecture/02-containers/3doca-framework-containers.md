@@ -257,7 +257,7 @@ sequenceDiagram
   - テンプレート選択ロジック
   - ギャップマーカー管理
   - Frontmatterスキーマ検証
-- [検証システム - Component図（今後作成予定）](../03-components/validation-system-components.md)
+- 検証システム - Component図 [TODOCS: validation-system-components.md を作成予定]
   - ギャップ検出エンジン
   - リンク検証エンジン
   - CI統合モジュール
@@ -266,7 +266,7 @@ sequenceDiagram
 
 - **上位**: [Context図 - 3doca Framework](../01-context/3doca-framework-context.md)
 - **詳細**: [テンプレートエンジン - Component図](../03-components/template-engine-components.md)
-- **運用**: [ドキュメント作成プロセス](../../02_operations/01-processes/documentation-creation-process.md)
+- **運用**: [ドキュメント作成プロセス](../../02_operations/01-processes/01-document-creation-process.md)
 - **設定**: [CLAUDE.md](/mnt/j/pcloud_sync/5agent/1conf/3doca/CLAUDE.md)
 - **テンプレート**: [_templates/00-INDEX.md](../../_templates/00-INDEX.md)
 - **スキーマ**: [01-FRONTMATTER_SCHEMA.md](../../_templates/01-FRONTMATTER_SCHEMA.md)

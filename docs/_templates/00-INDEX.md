@@ -1,3 +1,15 @@
+---
+title: "テンプレート一覧"
+type: index
+category: templates
+tags: [templates, index, navigation]
+summary: ドキュメント作成用テンプレートの一覧と選択ガイド
+version: "1.0.0"
+status: published
+created: "2025-12-09"
+updated: "2025-12-10"
+---
+
 # テンプレート一覧
 
 ドキュメント作成時は、該当するテンプレートをコピーして使用してください。
@@ -47,6 +59,7 @@ _templates/
 ### 何を伝えたいか？
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     Start([ドキュメント作成]) --> Q1{目的は？}
     
@@ -114,6 +127,6 @@ cheatsheet → reference → runbook/playbook
 
 ## 関連ドキュメント
 
-- [CLAUDE.md](../CLAUDE.md) - プロジェクトルール全体
+- [CLAUDE.md](../../CLAUDE.md) - プロジェクトルール全体
 - [01-FRONTMATTER_SCHEMA.md](./01-FRONTMATTER_SCHEMA.md) - フロントマター仕様
 - [04_agents/README.md](./04_agents/README.md) - 検証エージェントテンプレート

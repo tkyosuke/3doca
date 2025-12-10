@@ -97,15 +97,15 @@ author: Claude Code
 | 現在のパス | 移行先 | 分類 | ティア | 備考 |
 |-----------|--------|------|-------|------|
 | `0README.md` | `docs/README.md` | DEPRECATE | - | 新README.mdに統合済み |
-| `1USAGE-GUIDE.md` | `docs/01_knowledge/how-to/usage-guide.md` | MIGRATE | Tier 2 | |
-| `2MIGRATION.md` | `docs/01_knowledge/how-to/migration-guide.md` | MIGRATE | Tier 2 | |
-| `3POLICY.md` | `docs/01_knowledge/concepts/policy.md` | MIGRATE | Tier 4 | |
+| `1USAGE-GUIDE.md` | `docs/01_knowledge/03-how-to/usage-guide.md` | MIGRATE | Tier 2 | |
+| `2MIGRATION.md` | `docs/01_knowledge/03-how-to/migration-guide.md` | MIGRATE | Tier 2 | |
+| `3POLICY.md` | `docs/01_knowledge/01-concepts/policy.md` | MIGRATE | Tier 4 | |
 | `4FRONTMATTER-EXTENSION-SPEC.md` | `docs/01_knowledge/reference/frontmatter-spec.md` | MIGRATE | Tier 3 | |
 | `4adoption-report.md` | `docs/archives/reports/adoption-report.md` | ARCHIVE | - | プロジェクト記録 |
 | `5CLAUDE-CONFIG.md` | `docs/01_knowledge/reference/claude-config.md` | MIGRATE | Tier 3 | |
 | `5SECTION-DEPENDENCY-MAP.md` | `docs/01_knowledge/reference/section-dependency.md` | MIGRATE | Tier 3 | |
-| `6DEVRAG-OPTIMIZATION-GUIDE.md` | `docs/01_knowledge/how-to/devrag-optimization.md` | MIGRATE | Tier 2 | |
-| `7CI-CD-GUIDE.md` | `docs/01_knowledge/how-to/ci-cd-guide.md` | MIGRATE | Tier 2 | |
+| `6DEVRAG-OPTIMIZATION-GUIDE.md` | `docs/01_knowledge/03-how-to/devrag-optimization.md` | MIGRATE | Tier 2 | |
+| `7CI-CD-GUIDE.md` | `docs/01_knowledge/03-how-to/ci-cd-guide.md` | MIGRATE | Tier 2 | |
 | `8STALENESS-DETECTION-SPEC.md` | `docs/01_knowledge/reference/staleness-detection.md` | MIGRATE | Tier 3 | |
 | `9251129claude.md` | `docs/archives/source-materials/` | ARCHIVE | - | 方針決定の根拠 |
 | `9251205claude.md` | `docs/archives/source-materials/` | ARCHIVE | - | 方針決定の根拠 |
@@ -132,13 +132,13 @@ author: Claude Code
 
 | 現在のパス | 移行先 | 分類 | ティア | 備考 |
 |-----------|--------|------|-------|------|
-| `examples/00data-analysis-process.md` | `docs/02_operations/processes/data-analysis.md` | MIGRATE | Tier 2 | |
-| `examples/01data-quality-analysis-process.md` | `docs/02_operations/processes/data-quality-analysis.md` | MIGRATE | Tier 2 | |
-| `examples/10data-quality-issues-playbook.md` | `docs/02_operations/playbooks/data-quality-issues.md` | MIGRATE | Tier 2 | |
-| `examples/11anomaly-detection-playbook.md` | `docs/02_operations/playbooks/anomaly-detection.md` | MIGRATE | Tier 2 | |
-| `examples/20data-cleansing-runbook.md` | `docs/02_operations/runbooks/data-cleansing.md` | MIGRATE | Tier 2 | |
+| `examples/00data-analysis-process.md` | `docs/02_operatio../01-processes/data-analysis.md` | MIGRATE | Tier 2 | |
+| `examples/01data-quality-analysis-process.md` | `docs/02_operatio../01-processes/data-quality-analysis.md` | MIGRATE | Tier 2 | |
+| `examples/10data-quality-issues-playbook.md` | `docs/02_operations/02-playbooks/data-quality-issues.md` | MIGRATE | Tier 2 | |
+| `examples/11anomaly-detection-playbook.md` | `docs/02_operations/02-playbooks/anomaly-detection.md` | MIGRATE | Tier 2 | |
+| `examples/20data-cleansing-runbook.md` | `docs/02_operatio../03-runbooks/data-cleansing.md` | MIGRATE | Tier 2 | |
 | `examples/30anti-patterns-data-analysis.md` | `docs/01_knowledge/reference/anti-patterns.md` | MIGRATE | Tier 3 | リファレンス |
-| `examples/40-roms-kuroshio-simulation-sop.md` | `docs/02_operations/runbooks/roms-kuroshio-sop.md` | MIGRATE | Tier 2 | |
+| `examples/40-roms-kuroshio-simulation-sop.md` | `docs/02_operatio../03-runbooks/roms-kuroshio-sop.md` | MIGRATE | Tier 2 | |
 | `examples/README.md` | - | DEPRECATE | - | 各フォルダREADMEに統合 |
 
 ### schema/
@@ -290,14 +290,14 @@ done
 
 ```bash
 # プロセス
-cp 01-doc-framework/examples/0*process*.md docs/02_operations/processes/
+cp 01-doc-framework/examples/0*process*.md docs/02_operatio../01-processes/
 
 # プレイブック
-cp 01-doc-framework/examples/1*playbook*.md docs/02_operations/playbooks/
+cp 01-doc-framework/examples/1*playbook*.md docs/02_operations/02-playbooks/
 
 # ランブック
-cp 01-doc-framework/examples/2*runbook*.md docs/02_operations/runbooks/
-cp 01-doc-framework/examples/40*.md docs/02_operations/runbooks/
+cp 01-doc-framework/examples/2*runbook*.md docs/02_operatio../03-runbooks/
+cp 01-doc-framework/examples/40*.md docs/02_operatio../03-runbooks/
 
 # リファレンス
 cp 01-doc-framework/examples/30*.md docs/01_knowledge/reference/
@@ -306,8 +306,8 @@ cp 01-doc-framework/examples/30*.md docs/01_knowledge/reference/
 ### Phase 5: ガイド・仕様書移行
 
 ```bash
-cp 01-doc-framework/1USAGE-GUIDE.md docs/01_knowledge/how-to/usage-guide.md
-cp 01-doc-framework/3POLICY.md docs/01_knowledge/concepts/policy.md
+cp 01-doc-framework/1USAGE-GUIDE.md docs/01_knowledge/03-how-to/usage-guide.md
+cp 01-doc-framework/3POLICY.md docs/01_knowledge/01-concepts/policy.md
 # ... 以下同様
 ```
 
@@ -315,8 +315,8 @@ cp 01-doc-framework/3POLICY.md docs/01_knowledge/concepts/policy.md
 
 ## 関連リンク
 
-- [ギャップマーカー仕様](./GAP-MARKER-SPEC.md)
-- [ティア設計仕様](./TIER-DESIGN-SPEC.md)
+- [ギャップマーカー仕様](./01-GAP-MARKER-SPEC.md)
+- [ティア設計仕様](./02-TIER-DESIGN-SPEC.md)
 - [新ディレクトリ構造](../../README.md)
 
 ---

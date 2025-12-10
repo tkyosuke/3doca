@@ -1,3 +1,15 @@
+---
+title: "フロントマタースキーマ定義"
+type: reference
+category: specifications
+tags: [frontmatter, schema, yaml, devrag, specifications]
+summary: devrag/RAG検索に最適化されたフロントマター仕様。タイプ別フィールドとRAG最適化ガイドを含む。
+version: "1.0.0"
+status: published
+created: "2025-12-09"
+updated: "2025-12-10"
+---
+
 # フロントマタースキーマ定義
 
 devrag/RAG検索に最適化されたフロントマター仕様。

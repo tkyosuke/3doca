@@ -39,6 +39,7 @@ updated: "[TODOCS: YYYY-MM-DD]"
 [TODOCS: 説明]
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     A[TODOCS: 概念図]
 ```

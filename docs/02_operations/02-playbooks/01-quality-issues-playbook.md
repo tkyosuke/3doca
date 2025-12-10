@@ -24,7 +24,7 @@ triggers:
 owner: "Documentation Lead"
 related:
   - "../01-processes/01-document-creation-process.md"
-  - "../../01_knowledge/concepts/README.md"
+  - "../../01_knowledge/01-concepts/README.md"
   - "../../_templates/README.md"
 version: "1.0.0"
 status: active
@@ -90,6 +90,7 @@ done
 ### 3. 初期判断
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     A[品質問題検出] --> B{問題の<br/>重大性は?}
     B -->|Critical| C[即座エスカレーション]
@@ -116,6 +117,7 @@ flowchart TD
 ## 対応フロー
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     Start([品質問題検出]) --> A[初期確認]
     A --> B{重大性判定}
