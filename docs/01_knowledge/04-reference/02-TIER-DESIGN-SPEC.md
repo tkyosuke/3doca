@@ -194,9 +194,9 @@ Tier 4: 設計思想と背景の理解
 | `01_knowledge/tutorials/` | 1 | Tutorial | - | - |
 | `01_knowledge/03-how-to/` | 2 | How-to | - | - |
 | `01_knowledge/reference/` | 3 | Reference | - | - |
-| `02_operatio../01-processes/` | 2 | - | プロセス | - |
+| `02_operations/01-processes/` | 2 | - | プロセス | - |
 | `02_operations/02-playbooks/` | 2 | - | プレイブック | - |
-| `02_operatio../03-runbooks/` | 2 | - | ランブック | - |
+| `02_operations/03-runbooks/` | 2 | - | ランブック | - |
 | `02_operations/cheatsheets/` | 0/3 | - | チートシート | - |
 | `03_architecture/context/` | 0 | - | - | Level 1 |
 | `03_architecture/containers/` | 4 | - | - | Level 2 |

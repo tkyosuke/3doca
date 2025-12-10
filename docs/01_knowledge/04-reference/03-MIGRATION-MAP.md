@@ -132,13 +132,13 @@ author: Claude Code
 
 | 現在のパス | 移行先 | 分類 | ティア | 備考 |
 |-----------|--------|------|-------|------|
-| `examples/00data-analysis-process.md` | `docs/02_operatio../01-processes/data-analysis.md` | MIGRATE | Tier 2 | |
-| `examples/01data-quality-analysis-process.md` | `docs/02_operatio../01-processes/data-quality-analysis.md` | MIGRATE | Tier 2 | |
+| `examples/00data-analysis-process.md` | `docs/02_operations/01-processes/data-analysis.md` | MIGRATE | Tier 2 | |
+| `examples/01data-quality-analysis-process.md` | `docs/02_operations/01-processes/data-quality-analysis.md` | MIGRATE | Tier 2 | |
 | `examples/10data-quality-issues-playbook.md` | `docs/02_operations/02-playbooks/data-quality-issues.md` | MIGRATE | Tier 2 | |
 | `examples/11anomaly-detection-playbook.md` | `docs/02_operations/02-playbooks/anomaly-detection.md` | MIGRATE | Tier 2 | |
-| `examples/20data-cleansing-runbook.md` | `docs/02_operatio../03-runbooks/data-cleansing.md` | MIGRATE | Tier 2 | |
+| `examples/20data-cleansing-runbook.md` | `docs/02_operations/03-runbooks/data-cleansing.md` | MIGRATE | Tier 2 | |
 | `examples/30anti-patterns-data-analysis.md` | `docs/01_knowledge/reference/anti-patterns.md` | MIGRATE | Tier 3 | リファレンス |
-| `examples/40-roms-kuroshio-simulation-sop.md` | `docs/02_operatio../03-runbooks/roms-kuroshio-sop.md` | MIGRATE | Tier 2 | |
+| `examples/40-roms-kuroshio-simulation-sop.md` | `docs/02_operations/03-runbooks/roms-kuroshio-sop.md` | MIGRATE | Tier 2 | |
 | `examples/README.md` | - | DEPRECATE | - | 各フォルダREADMEに統合 |
 
 ### schema/
@@ -156,41 +156,58 @@ author: Claude Code
 
 #### tutorials/（Tier 1）
 
-[TODOCS: 以下のチュートリアルを新規作成]
+**Phase 12で作成予定**:
 
 - [ ] `getting-started.md` - 3docaフレームワーク入門（15分）
+  - テンプレート選択、フロントマター設定、基本構造の理解
 - [ ] `first-document.md` - 最初のドキュメント作成（15分）
+  - ハウツードキュメント作成の実践、ギャップマーカー使用法
 - [ ] `template-usage.md` - テンプレートの使い方（10分）
+  - 各テンプレートの選定基準、カスタマイズ方法
+
+**Phase 13で検討（ドメイン固有）**:
 
 [SME_NEEDED: ドメイン固有チュートリアルの題材選定]
 
-- [ ] CFDシミュレーション入門チュートリアル
-- [ ] GISデータ処理入門チュートリアル
+- [ ] CFDシミュレーション入門チュートリアル（具体的なソルバー/ケース要選定）
+- [ ] GISデータ処理入門チュートリアル（具体的なデータセット/ツール要選定）
 
 #### concepts/（Tier 4）
 
-[TODOCS: 以下の概念説明を新規作成]
+**Phase 12で作成予定**:
 
 - [ ] `framework-design.md` - 3docaフレームワークの設計思想
+  - 3軸構造の設計根拠、Diátaxis/運用/C4の統合意図
+  - ソース: `docs/archives/source-materials/9251207claude-2.md`
 - [ ] `diataxis-adoption.md` - Diátaxis採用の根拠
+  - 読者中心設計の原則、4象限分類の利点
+  - ソース: `docs/archives/source-materials/9251129claude.md`
 - [ ] `cognitive-foundation.md` - 5ティア設計の認知科学的基盤
+  - 認知負荷理論、段階的詳細化の原則
+  - ソース: `docs/archives/source-materials/9251206claude.md`
 
 ### C4軸（03_architecture）
 
 #### context/（Tier 0）
 
-[TODOCS: 以下のコンテキスト図を新規作成]
+**現状**: 既存の `3doca-framework-context.md` で基本的なコンテキスト図は作成済み。
 
-- [ ] `3doca-overview.md` - 3docaフレームワーク全体像
+**Phase 13で検討（必要に応じて）**:
+
+- [ ] フレームワーク利用シナリオ別のコンテキスト図（個人利用、チーム利用、組織利用）
 
 [SME_NEEDED: ドメイン固有のコンテキスト図]
 
-- [ ] CFDシミュレーションパイプライン全体像
-- [ ] GISデータ処理システム全体像
+- [ ] CFDシミュレーションパイプライン全体像（ソフトウェア/データソース要選定）
+- [ ] GISデータ処理システム全体像（ツールチェーン/データフォーマット要選定）
 
 #### containers/（Tier 4）
 
-[TODOCS: 必要に応じてコンテナ図を作成]
+**現状**: 既存の `3doca-framework-containers.md` でコンテナ図は作成済み。
+
+**Phase 13で検討（必要に応じて）**:
+
+- [ ] ツール統合アーキテクチャ（CI/CD、DevRag、Markdownlint等の連携）
 
 #### components/（Tier 4）
 
@@ -198,14 +215,23 @@ author: Claude Code
 
 ### テンプレート（_templates）
 
-[TODOCS: 以下のテンプレートを新規作成]
+**現状**: `docs/_templates/` ディレクトリに基本的な運用ドキュメントテンプレートは完備（プロセス、プレイブック、ランブック、ADR、チートシート等）。
+
+**Phase 12で作成予定（Diátaxis軸テンプレート）**:
 
 - [ ] `concept-template.md` - 概念説明テンプレート
+  - 背景、定義、重要性、関連概念のセクション構成
 - [ ] `tutorial-template.md` - チュートリアルテンプレート
+  - 学習目標、前提条件、手順、検証、まとめのセクション構成
 - [ ] `how-to-template.md` - ハウツーテンプレート
+  - 目的、前提条件、手順、トラブルシューティング、関連リンクのセクション構成
 - [ ] `reference-template.md` - リファレンステンプレート
-- [ ] `c4-context-template.md` - C4コンテキスト図テンプレート
-- [ ] `c4-containers-template.md` - C4コンテナ図テンプレート
+  - 概要、構文、パラメータ、例、関連項目のセクション構成
+
+**Phase 13で検討（C4軸テンプレート）**:
+
+- [ ] `c4-context-template.md` - C4コンテキスト図テンプレート（Mermaid flowchart代替）
+- [ ] `c4-containers-template.md` - C4コンテナ図テンプレート（Mermaid flowchart代替）
 
 ---
 
@@ -216,7 +242,7 @@ author: Claude Code
 | **MIGRATE** | 25 | 新構造に移行 |
 | **ARCHIVE** | 6 | アーカイブとして保存 |
 | **DEPRECATE** | 4 | 新仕様に統合済み |
-| **NEW** | 12+ | 新規作成必要 |
+| **NEW** | 15 | 新規作成必要（Phase 12: 10, Phase 13: 5） |
 
 ---
 
@@ -290,14 +316,14 @@ done
 
 ```bash
 # プロセス
-cp 01-doc-framework/examples/0*process*.md docs/02_operatio../01-processes/
+cp 01-doc-framework/examples/0*process*.md docs/02_operations/01-processes/
 
 # プレイブック
 cp 01-doc-framework/examples/1*playbook*.md docs/02_operations/02-playbooks/
 
 # ランブック
-cp 01-doc-framework/examples/2*runbook*.md docs/02_operatio../03-runbooks/
-cp 01-doc-framework/examples/40*.md docs/02_operatio../03-runbooks/
+cp 01-doc-framework/examples/2*runbook*.md docs/02_operations/03-runbooks/
+cp 01-doc-framework/examples/40*.md docs/02_operations/03-runbooks/
 
 # リファレンス
 cp 01-doc-framework/examples/30*.md docs/01_knowledge/reference/
@@ -322,5 +348,6 @@ cp 01-doc-framework/3POLICY.md docs/01_knowledge/01-concepts/policy.md
 ---
 
 **作成日**: 2025-12-09
-**バージョン**: 1.0
-**ステータス**: ユーザー確認待ち
+**更新日**: 2025-12-10
+**バージョン**: 1.1
+**ステータス**: Phase 12実行可能、Phase 13は要SME確認

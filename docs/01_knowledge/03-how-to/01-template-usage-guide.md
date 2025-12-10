@@ -75,7 +75,13 @@ flowchart LR
 
 #### C4軸（`docs/03_architecture/`）
 
-[INCOMPLETE: C4軸のテンプレートは将来追加予定]
+| テンプレート | 用途 | 使用場面 |
+|-------------|------|---------|
+| `context-template.md` | Context (Level 1) | システム全体と外部との関係 |
+| `container-template.md` | Container (Level 2) | 主要な技術コンポーネント |
+| `component-template.md` | Component (Level 3) | 内部構造の詳細 |
+
+[TODOCS: C4軸のテンプレートは現在作成中です。flowchart + subgraph による代替実装を使用してください。]
 
 ### 1.2 テンプレートの場所
 
@@ -109,9 +115,9 @@ docs/01_knowledge/03-how-to/      # ハウツー
 docs/01_knowledge/04-reference/   # リファレンス
 
 # 運用軸の例
-docs/02_operatio../01-processes/     # プロセス
+docs/02_operations/01-processes/     # プロセス
 docs/02_operations/02-playbooks/     # プレイブック
-docs/02_operatio../03-runbooks/      # ランブック
+docs/02_operations/03-runbooks/      # ランブック
 docs/02_operations/cheatsheets/   # チートシート
 ```
 
@@ -140,23 +146,29 @@ cp docs/_templates/02_operations/playbook-template.md \
 
 ```yaml
 ---
-title: "[TODOCS: 〜する方法]"  # → 実際のタイトルに変更
+title: "メッシュ品質を検証する方法"  # 実際のタイトルに変更
 type: how-to                   # テンプレートに応じて設定済み
-category: "[TODOCS: カテゴリ]" # → 例: "simulation", "data-processing"
-tags: []                       # → [mesh, iric, cfd] など追加
-audience: intermediate         # → beginner/intermediate/advanced
-summary: |                     # → 2-3文の具体的な要約に変更
-  [TODOCS: このガイドで達成できるタスクの説明]
-keywords:                      # → 検索キーワード追加
-  - [TODOCS: キーワード]
-prerequisites:                 # → 前提ドキュメントへのリンク
-  - [LINK_NEEDED: 必要な前提知識]
-related:                       # → 関連ドキュメントへのリンク
-  - [LINK_NEEDED: 関連ドキュメント]
+category: "mesh-quality"       # 例: "simulation", "data-processing"
+tags: [mesh, quality, validation, cfd]  # 関連タグを追加
+audience: intermediate         # beginner/intermediate/advanced
+summary: |                     # 2-3文の具体的な要約
+  CFDシミュレーション用メッシュの品質を検証する手順を説明します。
+  メッシュの歪み、アスペクト比、直交性などの品質指標を確認し、計算精度を確保します。
+keywords:                      # 検索キーワード追加
+  - mesh quality
+  - validation
+  - aspect ratio
+  - orthogonality
+prerequisites:                 # 前提ドキュメントへのリンク
+  - ../04-reference/01-GAP-MARKER-SPEC.md
+  - ../04-reference/04-FRONTMATTER-REFERENCE.md
+related:                       # 関連ドキュメントへのリンク
+  - ../03-how-to/mesh-generation-guide.md
+  - ../04-reference/mesh-quality-criteria.md
 version: "1.0.0"               # そのまま
 status: draft                  # draft → review → published
-created: "[TODOCS: YYYY-MM-DD]" # → 今日の日付 (例: 2025-12-10)
-updated: "[TODOCS: YYYY-MM-DD]" # → 今日の日付
+created: "2025-12-10"          # 今日の日付
+updated: "2025-12-10"          # 今日の日付
 ---
 ```
 
@@ -223,8 +235,10 @@ last_tested: "2025-12-10"
 
 このガイドを実行するには：
 
-- [TODOCS: 必要な環境・ツール]  # → 実際の前提条件を記述
-- [TODOCS: 必要な権限・アクセス] # → 実際の権限要件を記述
+- iRIC 4.0以降がインストールされていること
+- Nays2DFloodソルバーが利用可能であること
+- 河川形状データ（地形データ、境界条件データ）が準備されていること
+- メッシュ生成に関する基礎知識（推奨：チュートリアル完了済み）
 ```
 
 ### 4.2 コード例の追加
@@ -233,12 +247,15 @@ last_tested: "2025-12-10"
 
 ```bash
 # 変更前
-[NEEDS_EXAMPLE: 準備コマンド]
+# [このセクションは具体的なコマンド例で置き換える]
 
-# 変更後
-# iRICプロジェクトの作成
-iric-console create-project --name "my_river" --solver nays2dflood
-cd my_river
+# 変更後（具体例）
+# テンプレートファイルを目的のディレクトリにコピー
+cp docs/_templates/01_knowledge/03-how-to.md \
+   docs/01_knowledge/03-how-to/mesh-quality-validation.md
+
+# エディタで開いてフロントマターを編集
+vim docs/01_knowledge/03-how-to/mesh-quality-validation.md
 ```
 
 ### 4.3 Mermaid図の活用
@@ -286,9 +303,13 @@ flowchart TD
 
 最小メッシュサイズは通常 [NEEDS_VERIFICATION: デフォルト値を公式ドキュメントで確認必要] に設定されます。
 
-[NEEDS_EXAMPLE: iRIC GUIでのメッシュ設定画面のスクリーンショット]
+**メッシュ設定画面での操作例**:
+iRIC Nays2DFloodのメッシュ設定画面で、以下のパラメータを指定します：
+- 格子サイズ: 河川幅の1/20〜1/10（推奨）
+- 境界適合: ON（河岸形状に沿う）
+- 品質チェック: 自動実行
 
-詳細なパラメータ説明は [LINK_NEEDED: メッシュパラメータリファレンスへのリンク] を参照してください。
+詳細なパラメータ説明は [メッシュパラメータリファレンス](../04-reference/mesh-parameters.md) を参照してください。
 ```
 
 ### 5.3 マーカーの解消
@@ -332,13 +353,22 @@ python3 -c "import yaml; yaml.safe_load(open('docs/01_knowledge/03-how-to/my-tas
 
 ```bash
 # 内部リンクの確認
-grep -o '\](\.\./' docs/01_knowledge/03-how-to/my-task-guide.md | while read -r link; do
-  # リンク先ファイルの存在確認
-  # [TODOCS: リンク検証スクリプトの追加]
-done
+# markdownlint-cli2を使用してリンク検証を実行
+npx markdownlint-cli2 "docs/01_knowledge/03-how-to/my-task-guide.md"
+
+# または、手動でリンク先の存在確認
+grep -o '\](\.\./' docs/01_knowledge/03-how-to/my-task-guide.md | \
+  sed 's/](\.\.\///' | while read -r link; do
+    target="docs/01_knowledge/03-how-to/../$link"
+    if [ -f "$target" ]; then
+      echo "✓ $link"
+    else
+      echo "✗ $link (not found)"
+    fi
+  done
 ```
 
-[INCOMPLETE: リンク検証の自動化ツールが必要]
+リンク検証には `markdownlint-cli2` を使用することを推奨します。`npx markdownlint-cli2 "docs/**/*.md"` で実行可能です。
 
 ### 6.4 ギャップマーカー数の確認
 
@@ -390,11 +420,11 @@ cp docs/_templates/01_knowledge/03-how-to.md \
 ```markdown
 ## メッシュ生成手順
 
-[TODOCS: 担当: 田中, 期限: 12/15]
+[TODOCS: 担当: 山田太郎, 期限: 2025-02-28]
 
 ## 品質検証手順
 
-[TODOCS: 担当: 佐藤, 期限: 12/15]
+[TODOCS: 担当: 鈴木花子, 期限: 2025-02-28]
 ```
 
 ## トラブルシューティング
@@ -407,14 +437,14 @@ cp docs/_templates/01_knowledge/03-how-to.md \
 | ギャップマーカーをどこに置くべきか不明 | マーカー仕様の理解不足 | [ギャップマーカー仕様](../04-reference/01-GAP-MARKER-SPEC.md)を参照 |
 | リンクが404になる | 相対パスの間違い、ファイル名の間違い | `ls`でファイル存在確認、相対パス計算を見直す |
 
-詳細なトラブルシューティングは[ドキュメント作成プレイブック](../../02_operations/02-playbooks/)を参照してください。（[LINK_NEEDED: プレイブックへのリンク]）
+詳細なトラブルシューティングは[ドキュメント作成プレイブック](../../02_operations/02-playbooks/documentation-issues.md)を参照してください。
 
 ## 関連ドキュメント
 
 - **概念理解**: [ティア設計仕様](../04-reference/02-TIER-DESIGN-SPEC.md) - テンプレートの設計思想
 - **仕様**: [ギャップマーカー仕様](../04-reference/01-GAP-MARKER-SPEC.md) - マーカーの使い方
 - **仕様**: [フロントマターリファレンス](../04-reference/04-FRONTMATTER-REFERENCE.md) - フロントマターの詳細
-- **ガイド**: [移行ガイド](../03-how-to/) - 既存ドキュメントの移行方法（[LINK_NEEDED: 移行ガイドへのリンク]）
+- **ガイド**: [ドキュメント移行ガイド](../03-how-to/migration-guide.md) - 既存ドキュメントの移行方法
 
 ---
 
@@ -425,5 +455,5 @@ cp docs/_templates/01_knowledge/03-how-to.md \
 ✅ 手順は実行可能か（6つのステップで構成）
 ✅ 結果の確認方法があるか（セクション6で提供）
 ✅ トラブルシューティングがあるか
-✅ 運用ドキュメントへの遷移リンクがあるか（一部[LINK_NEEDED]）
+✅ 運用ドキュメントへの遷移リンクがあるか
 -->
