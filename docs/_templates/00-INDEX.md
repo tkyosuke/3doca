@@ -30,6 +30,14 @@ _templates/
 │   ├── 02-container.md     # Level 2 - コンテナ図
 │   └── 03-component.md     # Level 3 - コンポーネント図
 │
+├── 04_agents/              # 検証エージェント設定
+│   ├── README.md           # エージェントテンプレート説明
+│   ├── INDEX.md            # エージェント一覧と使用方法
+│   ├── gap-detector/       # ギャップ検出エージェント
+│   ├── fact-checker/       # ファクト検証エージェント
+│   ├── completeness-checker/ # 完全性確認エージェント
+│   └── document-refiner/   # ドキュメント改善エージェント
+│
 ├── 00-INDEX.md             # このファイル
 └── 01-FRONTMATTER_SCHEMA.md # フロントマター仕様
 ```
@@ -108,3 +116,4 @@ cheatsheet → reference → runbook/playbook
 
 - [CLAUDE.md](../CLAUDE.md) - プロジェクトルール全体
 - [01-FRONTMATTER_SCHEMA.md](./01-FRONTMATTER_SCHEMA.md) - フロントマター仕様
+- [04_agents/README.md](./04_agents/README.md) - 検証エージェントテンプレート

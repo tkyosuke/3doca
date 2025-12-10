@@ -40,6 +40,7 @@ author: Claude Code
 ## 現在のコンテンツ
 
 - [01-gap-markers-quick-reference.md](./01-gap-markers-quick-reference.md) - ギャップマーカー早見表 ★★★★★
+- [02-verification-agents-quick-reference.md](./02-verification-agents-quick-reference.md) - 検証エージェント早見表 ★★★★★
 
 ## テンプレート
 

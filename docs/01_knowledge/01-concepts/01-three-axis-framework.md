@@ -17,8 +17,9 @@ keywords:
 prerequisites:
   - 技術ドキュメントの基本的な読み書き経験
 related:
-  - "[LINK_NEEDED: 初めてのドキュメント作成チュートリアル](../02-tutorials/01-first-document.md)"
-  - "[LINK_NEEDED: ギャップマーカー仕様](../../04-reference/gap-markers-reference.md)"
+  - "[初めてのドキュメント作成チュートリアル](../02-tutorials/01-first-document.md)"
+  - "[ギャップマーカー仕様](../04-reference/01-GAP-MARKER-SPEC.md)"
+  - "[品質保証フレームワーク](./02-quality-assurance-framework.md)"
 version: "1.0.0"
 status: draft
 created: "2025-12-10"
@@ -347,7 +348,7 @@ flowchart TD
 Diátaxisは実績のあるドキュメントフレームワークであり、Django、Gatsby等の大規模プロジェクトで採用されています。
 「学習/作業」「理論/実践」の2軸による4象限分類は、技術ドキュメントの本質的な性質を捉えています。
 
-[LINK_NEEDED: Diátaxis公式サイトへのリンク]
+[Diátaxis公式サイト](https://diataxis.fr/)
 
 ### 運用ドキュメントの追加理由
 
@@ -398,15 +399,16 @@ Microsoft Docs は「Concepts」「Quickstarts」「Tutorials」「How-to guides
 この概念を理解したら：
 
 - **実践**: [初めてのドキュメント作成チュートリアル](../02-tutorials/01-first-document.md)
-- **詳細**: [ギャップマーカーリファレンス](../../04-reference/gap-markers-reference.md)
-- **適用**: [LINK_NEEDED: ドキュメント配置ガイド（how-to）]
-- **運用**: [LINK_NEEDED: ドキュメントレビュープロセス（processes）]
+- **品質保証**: [品質保証フレームワーク](./02-quality-assurance-framework.md) - ギャップマーカーと検証エージェント
+- **詳細**: [ギャップマーカー仕様書](../04-reference/01-GAP-MARKER-SPEC.md)
+- **適用**: [テンプレート使用ガイド](../03-how-to/01-template-usage-guide.md)
+- **運用**: [ドキュメント作成プロセス](../../02_operations/01-processes/01-document-creation-process.md)
 
 ## 参考資料
 
 - [Diátaxis公式サイト](https://diataxis.fr/) - Diátaxis framework の詳細
 - [C4 Model](https://c4model.com/) - C4 モデルの公式サイト
-- [LINK_NEEDED: 本プロジェクトの CLAUDE.md]
+- [CLAUDE.md](../../../CLAUDE.md) - 本プロジェクトのルール（ギャップマーカー仕様含む）
 
 ---
 

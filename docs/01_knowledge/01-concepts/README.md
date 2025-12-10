@@ -39,6 +39,7 @@ author: Claude Code
 ## 現在のコンテンツ
 
 - [01-three-axis-framework.md](./01-three-axis-framework.md) - 3軸フレームワーク概念説明 ★★★★★
+- [02-quality-assurance-framework.md](./02-quality-assurance-framework.md) - 品質保証フレームワーク（ギャップマーカー・検証エージェント） ★★★★★
 
 ## テンプレート
 
