@@ -39,6 +39,7 @@ Thumbs.db
 *.tar.gz
 vectors.db
 models/
+tools/02-models/
 
 # Config (project-specific)
 config.json
