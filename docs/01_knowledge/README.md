@@ -58,8 +58,66 @@ Diátaxisフレームワークの4タイプに基づく知識習得のための�
   - [移行マップ](./04-reference/03-MIGRATION-MAP.md)
   - [フロントマターリファレンス](./04-reference/04-FRONTMATTER-REFERENCE.md)
 
+## Diátaxisの4タイプの関係
+
+Diátaxisは「学習/作業」と「理論/実践」の2軸で4象限に分類するフレームワークです。
+
+```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryBorderColor': '#1E1E2E', 'lineColor': '#89B4FA'}}}%%
+flowchart TB
+    subgraph Practical["🔧 実践的（何をするか）"]
+        Tutorial["📖 チュートリアル<br/>学習体験"]
+        HowTo["📋 ハウツー<br/>タスク解決"]
+    end
+
+    subgraph Theoretical["📚 理論的（何であるか）"]
+        Concept["💡 説明<br/>概念理解"]
+        Reference["📑 リファレンス<br/>技術仕様"]
+    end
+
+    Tutorial -->|習得後| HowTo
+    Concept -->|詳細は| Reference
+    Tutorial -.->|背景理解| Concept
+    HowTo -.->|仕様確認| Reference
+
+    style Tutorial fill:#4ade80,stroke:#1E1E2E,stroke-width:1px,color:#1E1E2E
+    style HowTo fill:#fbbf24,stroke:#1E1E2E,stroke-width:1px,color:#1E1E2E
+    style Concept fill:#a78bfa,stroke:#1E1E2E,stroke-width:1px,color:#1E1E2E
+    style Reference fill:#89B4FA,stroke:#1E1E2E,stroke-width:1px,color:#1E1E2E
+```
+
+| 分類 | 学習指向 | 作業指向 |
+|------|----------|----------|
+| **実践的** | チュートリアル | ハウツー |
+| **理論的** | 説明（concepts） | リファレンス |
+
+## このドキュメント群について
+
+このディレクトリのドキュメントは、3docaフレームワークの**実例として機能**します。
+
+### 自己言及的な実演
+
+| ドキュメント | 説明していること | 実演していること |
+|-------------|------------------|------------------|
+| [プロジェクトビジョン](./01-concepts/00-project-vision.md) | フレームワークの目的 | concepts/の書き方 |
+| [3軸フレームワーク](./01-concepts/01-three-axis-framework.md) | 3軸の使い分け | Mermaid図の使い方 |
+| [初めてのドキュメント作成](./02-tutorials/01-first-document.md) | チュートリアルの作り方 | tutorials/の構造 |
+| [ギャップマーカー仕様](./04-reference/01-GAP-MARKER-SPEC.md) | マーカーの使い方 | reference/のフォーマット |
+
+### 使用例
+
+**学習したい場合**:
+1. [プロジェクトビジョン](./01-concepts/00-project-vision.md) で全体像を把握
+2. [チュートリアル](./02-tutorials/01-first-document.md) で実際に手を動かす
+3. [ハウツー](./03-how-to/01-template-usage-guide.md) で特定タスクを実行
+
+**実務で参照したい場合**:
+1. [リファレンス](./04-reference/) で仕様を確認
+2. [運用軸](../02_operations/) で手順を実行
+
 ## 関連リンク
 
+- [プロジェクトビジョン](./01-concepts/00-project-vision.md) - フレームワークの目的と設計思想
 - [運用軸（02_operations）](../02_operations/README.md)
 - [C4軸（03_architecture）](../03_architecture/README.md)
 - [ティア設計仕様](./04-reference/02-TIER-DESIGN-SPEC.md)
