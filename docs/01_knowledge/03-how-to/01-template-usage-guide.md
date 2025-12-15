@@ -77,11 +77,11 @@ flowchart LR
 
 | テンプレート | 用途 | 使用場面 |
 |-------------|------|---------|
-| `context-template.md` | Context (Level 1) | システム全体と外部との関係 |
-| `container-template.md` | Container (Level 2) | 主要な技術コンポーネント |
-| `component-template.md` | Component (Level 3) | 内部構造の詳細 |
+| [`01-context.md`](../../_templates/03_architecture/01-context.md) | Context (Level 1) | システム全体と外部との関係 |
+| [`02-container.md`](../../_templates/03_architecture/02-container.md) | Container (Level 2) | 主要な技術コンポーネント |
+| [`03-component.md`](../../_templates/03_architecture/03-component.md) | Component (Level 3) | 内部構造の詳細 |
 
-[TODOCS: C4軸のテンプレートは現在作成中です。flowchart + subgraph による代替実装を使用してください。]
+**実装方式**: Mermaidの `flowchart + subgraph` を使用したC4ダイアグラム。テンプレートにはダークモード対応の設定が含まれています。
 
 ### 1.2 テンプレートの場所
 
@@ -90,15 +90,19 @@ flowchart LR
 ```bash
 docs/_templates/
 ├── 01_knowledge/
-│   ├── 01-concepts.md
-│   ├── 02-tutorials.md
+│   ├── 01-concept.md
+│   ├── 02-tutorial.md
 │   ├── 03-how-to.md
 │   └── 04-reference.md
-└── 02_operations/
-    ├── process-template.md
-    ├── playbook-template.md
-    ├── runbook-template.md
-    └── cheatsheet-template.md
+├── 02_operations/
+│   ├── 01-process.md
+│   ├── 02-playbook.md
+│   ├── 03-runbook.md
+│   └── 04-cheatsheet.md
+└── 03_architecture/
+    ├── 01-context.md
+    ├── 02-container.md
+    └── 03-component.md
 ```
 
 ## 2. ファイルのコピー
