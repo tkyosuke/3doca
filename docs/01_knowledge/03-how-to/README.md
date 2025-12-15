@@ -41,7 +41,11 @@ author: Claude Code
 
 ## 現在のコンテンツ
 
-- [01-template-usage-guide.md](./01-template-usage-guide.md) - テンプレート使用ガイド ★★★★★
+| ドキュメント | 説明 | 優先度 |
+|-------------|------|--------|
+| [01-template-usage-guide.md](./01-template-usage-guide.md) | テンプレート使用ガイド | ★★★★★ |
+| [02-quality-verification.md](./02-quality-verification.md) | 品質検証を実行する | ★★★★☆ |
+| [03-diataxis-categorization.md](./03-diataxis-categorization.md) | Diátaxis分類法でコンテンツを整理する | ★★★★☆ |
 
 ## テンプレート
 

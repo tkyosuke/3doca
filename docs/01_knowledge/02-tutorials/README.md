@@ -42,7 +42,13 @@ author: Claude Code
 
 ## 現在のコンテンツ
 
-- [01-first-document.md](./01-first-document.md) - 初めてのドキュメント作成（15分）★★★★★
+| ドキュメント | 説明 | 所要時間 | 優先度 |
+|-------------|------|----------|--------|
+| [01-first-document.md](./01-first-document.md) | 初めてのドキュメント作成 | 15分 | ★★★★★ |
+| [02-mermaid-diagram.md](./02-mermaid-diagram.md) | Mermaidで図を作成する | 15分 | ★★★★☆ |
+| [03-gap-markers.md](./03-gap-markers.md) | ギャップマーカーで品質管理 | 15分 | ★★★★☆ |
+
+### ドメイン固有チュートリアル（計画中）
 
 [SME_NEEDED: ドメイン固有チュートリアルの題材選定が必要]
 
